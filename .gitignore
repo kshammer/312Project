@@ -104,6 +104,8 @@ ENV/
 
 # Rope project settings
 .ropeproject
+.classpath
+.project
 
 # mkdocs documentation
 /site
