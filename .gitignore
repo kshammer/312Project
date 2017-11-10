@@ -13,7 +13,7 @@ __pycache__/
 *.ods#
 *.iml
 .idea/
-
+.settings/
 # C extensions
 *.so
 
