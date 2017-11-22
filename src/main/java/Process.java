@@ -16,6 +16,14 @@ public class Process {
     public Process(){
 
     }
+
+    public Process(String name, int size, int arrival, ArrayList<String> commands){
+        setName(name);
+        setArrival(arrival);
+        setSize(size);
+        setCommands(commands);
+
+    }
     public void setName(String name){
         this.name = name;
     }
