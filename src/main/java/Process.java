@@ -63,9 +63,9 @@ public class Process {
     }
     public void caclulateRunTime(){
         if(!commands.isEmpty()){
-            for(int  i = 0; i < commands.size(); i++){
-                String[] command = commands.get(i).split("\\s+");
-                if(command[0].equals("CALCULATE")){
+            for (String command1 : commands) {
+                String[] command = command1.split("\\s+");
+                if (command[0].equals("CALCULATE")) {
                     runTime += Integer.parseInt(command[1]);
                 }
             }
