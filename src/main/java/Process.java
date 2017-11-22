@@ -9,7 +9,7 @@ public class Process {
     private State state;
     private int arrival;
     private int size;
-    private int lastCommand;
+    private int lastCommand = 0;
     private String name;
     private ArrayList<String> commands = new ArrayList<String>();
 
