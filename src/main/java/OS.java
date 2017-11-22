@@ -14,7 +14,7 @@ public class OS {
         //goes into the programs folder
         File folder = new File("./programs");
         if (folder == null){
-            throw new IllegalArgumentException("No programs to run");
+            throw new IllegalArgumentException("No programs to run or no programs folder");
         }
         //System.out.println(folder.listFiles());
         //puts all the files into an array
@@ -38,6 +38,7 @@ public class OS {
                         ArrayList<String> commands = new ArrayList<String>();
                         holder.setSize(readFile.nextInt());
                         while(readFile.hasNext()){
+                            // check to make sure all the commands are valid
                             commands.add(readFile.next());
                         }
                         holder.setCommands(commands);

@@ -11,6 +11,7 @@ public class Process {
     private int size;
     private int nextCommand = 0;
     private String name;
+    private int runTime;
     private ArrayList<String> commands = new ArrayList<String>();
 
     public Process(){
@@ -22,6 +23,7 @@ public class Process {
         setArrival(arrival);
         setSize(size);
         setCommands(commands);
+        this.state = this.state.NEW;
 
     }
     public void setName(String name){
@@ -58,6 +60,16 @@ public class Process {
     }
     public String getName(){
         return this.name;
+    }
+    public void caclulateRunTime(){
+        if(!commands.isEmpty()){
+            for(int  i = 0; i < commands.size(); i++){
+                String[] command = commands.get(i).split("\\s+");
+                if(command[0].equals("CALCULATE")){
+                    runTime += Integer.parseInt(command[1]);
+                }
+            }
+        }
     }
 
 
