@@ -13,32 +13,30 @@ public class Process {
     private String name;
     private ArrayList<String> commands = new ArrayList<String>();
 
-    public Process(File commands){
-        if (commands.exists()) {
-            this.state = State.NEW;
-            parseCommands(commands);
-        }
-        else{
-            throw new IllegalArgumentException("The file does not exist");
-        }
+    public Process(){
 
     }
-    private void parseCommands(File commands){
-        //file name is the name of the process
-        this.name = commands.getName();
-        try {
-            Scanner reader = new Scanner(commands);
-            //need to setup error checking for this
-            this.size = reader.nextInt();
-            while(reader.hasNext()){
-                //needs error checking to see if last command is EXE
-                this.commands.add(reader.next());
-            }
-
+    public void setName(String name){
+        this.name = name;
+    }
+    public void setArrival(int time){
+        if(time > 0){
+            this.arrival = time;
         }
-        catch(Exception e){
-            System.out.println("Couldn't open file");
-            e.printStackTrace();
+        else{
+            throw new IllegalArgumentException("time has to be greater than zero");
+        }
+    }
+    public void setCommands(ArrayList<String> coolCommands){
+        //copies by value should only be called once per process
+        commands.addAll(coolCommands);
+    }
+    public void setSize(int size){
+        if(size > 0){
+            this.size = size;
+        }
+        else{
+            throw new IllegalArgumentException("Size has to be greater than zero");
         }
     }
 
