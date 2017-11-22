@@ -3,7 +3,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 enum State{
-    NEW, RUNNING, WAITING, READY, TERMINATED
+    NEW, RUNNING, WAITING, READY, TERMINATED, BLOCKED
 }
 public class Process {
     private State state;
@@ -70,6 +70,13 @@ public class Process {
                 }
             }
         }
+    }
+    public void setState(State state){
+        this.state = state;
+    }
+
+    public State getState(){
+        return this.state;
     }
 
 
