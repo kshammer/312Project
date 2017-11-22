@@ -26,6 +26,7 @@ public class OS {
                 }
                 else{
                     Process holder = new Process();
+                    holder.setName(nameList[0]);
 
                 }
 

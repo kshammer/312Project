@@ -9,7 +9,7 @@ public class Process {
     private State state;
     private int arrival;
     private int size;
-    private int lastCommand = 0;
+    private int nextCommand = 0;
     private String name;
     private ArrayList<String> commands = new ArrayList<String>();
 
@@ -39,6 +39,19 @@ public class Process {
             throw new IllegalArgumentException("Size has to be greater than zero");
         }
     }
+    public int getArrival(){
+        return this.arrival;
+    }
+    public int getSize(){
+        return this.size;
+    }
+    public String getNextCommand(){
+        return commands.get(nextCommand);
+    }
+    public String getName(){
+        return this.name;
+    }
+
 
 
 }
