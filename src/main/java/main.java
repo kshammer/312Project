@@ -9,6 +9,8 @@ public class main {
         System.out.println(test);
         test1 = "goodbye";
         System.out.println(test);
+        OS testOS = new OS();
+        System.out.println(testOS.processes.toString());
 
     }
 }
