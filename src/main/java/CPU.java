@@ -3,7 +3,9 @@ public class CPU {
     public Clock cpuTime = new Clock();
 
 
+
     public CPU(){
+
 
     }
     public Process getCurrentProcess(){
@@ -17,13 +19,17 @@ public class CPU {
         if(command.equals("done")){
             //change what is on and set proccess to exit
         }else if (command.equals("IO")) {//do IO Stuff
+            current.setState(State.BLOCKING);
+            IOBurst burst = new IOBurst();
+            int numberOfCycles = burst.genNumber();
 
         }
         else if(command.equals("CALCULATE")){
-            //do calcualte stuff
+
 
         }
         else if(command.equals("YIELD")){
+
             // do yeild stuff
         }
         else if(command.equals("OUT")){
@@ -31,6 +37,9 @@ public class CPU {
         }else{
             System.out.println("Command could not be parsed. ");
         }
+    }
+    public Process removeCurrentProcess(){
+        return this.current;
     }
 
 }

@@ -10,8 +10,6 @@ public class OS {
     public OS(){
         getCommands();
 
-
-
     }
 
     //loads all the Programs in programs folder into process objects
