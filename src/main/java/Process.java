@@ -16,6 +16,7 @@ public class Process {
     private String name;
     private int runTime;
     private ArrayList<String> commands = new ArrayList<String>();
+    private boolean critical = false;
 
     public Process(){
 
@@ -93,6 +94,10 @@ public class Process {
         return this.state;
     }
 
-
-
+    public void setCritical(boolean critical) {
+        this.critical = critical;
+    }
+    public boolean getCritical(){
+        return this.critical;
+    }
 }
