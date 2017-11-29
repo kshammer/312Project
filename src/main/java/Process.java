@@ -14,7 +14,6 @@ public class Process {
     private int arrival;
     private int size;
     private String name;
-    private int runTime;
     private ArrayList<String> commands = new ArrayList<String>();
     private boolean critical = false;
 
@@ -76,16 +75,7 @@ public class Process {
     public String getName(){
         return this.name;
     }
-    public void caclulateRunTime(){
-        if(!commands.isEmpty()){
-            for (String command1 : commands) {
-                String[] command = command1.split("\\s+");
-                if (command[0].equals("CALCULATE")) {
-                    runTime += Integer.parseInt(command[1]);
-                }
-            }
-        }
-    }
+
     public void setState(State state){
         this.state = state;
     }

@@ -9,6 +9,7 @@ public class OS {
     public Scheduler scheduler = new Scheduler();
     public OS(){
         getCommands();
+        cpu.Cycle();
 
     }
 

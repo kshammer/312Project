@@ -17,17 +17,17 @@ public class CPU {
         this.current = proc;
     }
     public void Execute(){
+        
         String command = current.getNextCommand();
         if(command.equals("done")){
             //change what is on and set proccess to exit
         }else if (command.equals("IO")) {//do IO Stuff
             current.setState(State.WAIT);
 
-            IOCycles = burst.genNumber();
+            IOCycles += burst.genNumber();
 
         }
         else if(command.equals("CALCULATE")){
-
 
         }
         else if(command.equals("YIELD")){
@@ -44,10 +44,13 @@ public class CPU {
         return this.current;
     }
     public void Cycle(){
-        if
+        if(randomIO.check()){
+            IOCycles += burst.genNumber();
+        }
         if(IOCycles != 0){
             IOCycles--;
         }
+        Execute();
     }
 
 }
