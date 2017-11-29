@@ -5,8 +5,12 @@ import java.util.Scanner;
 enum State{
     NEW, RUNNING, WAITING, READY, TERMINATED, BLOCKED
 }
+enum Priority{
+    HIGH, MED, LOW
+}
 public class Process {
     private State state;
+    private Priority pri;
     private int arrival;
     private int size;
     private int nextCommand = 0;
@@ -24,6 +28,7 @@ public class Process {
         setSize(size);
         setCommands(commands);
         this.state = this.state.NEW;
+
 
     }
     public void setName(String name){
