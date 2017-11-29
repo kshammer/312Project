@@ -13,7 +13,6 @@ public class Process {
     private Priority pri;
     private int arrival;
     private int size;
-    private int nextCommand = 0;
     private String name;
     private int runTime;
     private ArrayList<String> commands = new ArrayList<String>();
@@ -67,7 +66,11 @@ public class Process {
         return this.size;
     }
     public String getNextCommand(){
-        return commands.get(nextCommand);
+        if(commands.size() > 0) {
+            return commands.remove(0);
+        }else{
+            return "done";
+        }
     }
     public String getName(){
         return this.name;
