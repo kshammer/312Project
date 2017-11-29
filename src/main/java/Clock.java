@@ -1,5 +1,5 @@
 public class Clock {
-    private static int tick = 0;
+    private int tick = 0;
 
     public Clock(){
 

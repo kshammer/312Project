@@ -2,6 +2,7 @@ public class CPU {
     private Process current;
     public Clock cpuTime = new Clock();
 
+
     public CPU(){
 
     }

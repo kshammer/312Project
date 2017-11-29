@@ -4,11 +4,16 @@ import java.util.Scanner;
 
 public class OS {
 
-    ArrayList<Process> processes = new ArrayList<Process>();
+    public ArrayList<Process> processes = new ArrayList<Process>();
+    public CPU cpu = new CPU();
+    public Scheduler scheduler = new Scheduler();
     public OS(){
         getCommands();
 
+
+
     }
+
     //loads all the Programs in programs folder into process objects
     public void getCommands(){
         //goes into the programs folder
