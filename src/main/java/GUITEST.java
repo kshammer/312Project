@@ -11,6 +11,8 @@ import static javafx.application.Application.launch;
 
 public class GUITEST extends Application {
     private final ObservableList<Process> readyProcessList = FXCollections.observableArrayList();
+    private final ObservableList<Process> waitingProcessList = FXCollections.observableArrayList();
+
 
 
     public static void main(String[] args){
@@ -22,8 +24,15 @@ public class GUITEST extends Application {
         stage.setWidth(450);
         stage.setHeight(550);
         TableColumn nameCol = new TableColumn("Name");
-        nameCol.setMinWidth(100);
         nameCol.setCellValueFactory(new PropertyValueFactory<Process, String>("Name"));
+        TableColumn sizeCol = new TableColumn("Size");
+        sizeCol.setCellValueFactory(new PropertyValueFactory<Process, String>("Size"));
+        TableColumn arrivalCol = new TableColumn("Arrival");
+        arrivalCol.setCellValueFactory(new PropertyValueFactory<Process, String>("Arrival"));
+        TableColumn statusCol = new TableColumn("Status");
+        statusCol.setCellValueFactory(new PropertyValueFactory<Process, String>("Status"));
+        TableColumn prioCol = new TableColumn("Priority");
+        prioCol.setCellValueFactory(new PropertyValueFactory<Process, String>("Priority"));
 
 
     }

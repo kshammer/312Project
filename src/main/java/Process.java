@@ -31,6 +31,12 @@ public class Process {
 
 
     }
+    public void setPriority(Priority pri){
+        this.pri = pri;
+    }
+    public Priority getPriority(){
+        return this.pri;
+    }
     public void setName(String name){
         this.name = name;
     }
