@@ -13,6 +13,23 @@ public class CPU {
     }
     public void Execute(){
         String command = current.getNextCommand();
+        if(command.equals("done")){
+            //change what is on and set proccess to exit
+        }else if (command.equals("IO")) {//do IO Stuff
+
+        }
+        else if(command.equals("CALCULATE")){
+            //do calcualte stuff
+
+        }
+        else if(command.equals("YIELD")){
+            // do yeild stuff
+        }
+        else if(command.equals("OUT")){
+            // Print something out to console
+        }else{
+            System.out.println("Command could not be parsed. ");
+        }
     }
 
 }

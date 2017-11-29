@@ -3,7 +3,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 enum State{
-    NEW, RUNNING, WAITING, READY, TERMINATED, BLOCKED
+    NEW, READY, RUN, WAIT, EXIT
 }
 enum Priority{
     HIGH, MED, LOW
