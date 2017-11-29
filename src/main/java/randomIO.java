@@ -5,6 +5,10 @@
 import java.util.Random;
 
 public class randomIO {
+
+    public randomIO(){
+
+    }
     
     //if return true, generate interrupt
     public boolean check()

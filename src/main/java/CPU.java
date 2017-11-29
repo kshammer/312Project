@@ -1,7 +1,9 @@
 public class CPU {
     private Process current;
     public Clock cpuTime = new Clock();
-
+    private int IOCycles;
+    private randomIO randomIO = new randomIO();
+    private IOBurst burst = new IOBurst();
 
 
     public CPU(){
@@ -19,9 +21,9 @@ public class CPU {
         if(command.equals("done")){
             //change what is on and set proccess to exit
         }else if (command.equals("IO")) {//do IO Stuff
-            current.setState(State.BLOCKING);
-            IOBurst burst = new IOBurst();
-            int numberOfCycles = burst.genNumber();
+            current.setState(State.WAIT);
+
+            IOCycles = burst.genNumber();
 
         }
         else if(command.equals("CALCULATE")){
@@ -40,6 +42,12 @@ public class CPU {
     }
     public Process removeCurrentProcess(){
         return this.current;
+    }
+    public void Cycle(){
+        if
+        if(IOCycles != 0){
+            IOCycles--;
+        }
     }
 
 }
