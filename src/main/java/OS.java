@@ -13,7 +13,23 @@ public class OS {
     }
     public void runCPU(){
         while(true){
-            cpu.Cycle();
+            String update = cpu.Cycle();
+            if(update.equals("done")){
+                cpu.Swap(scheduler.getNextProcess());
+                scheduler.resetQuantum();
+            }
+            if(update.equals("YIELD")){
+                cpu.Swap(scheduler.getNextProcess());
+                scheduler.resetQuantum();
+            }
+            if(update != null){
+                //print to screen
+
+            }
+            if(scheduler.getQuantum() > 0){
+                scheduler.updateQuantum();
+            }
+
         }
     }
 

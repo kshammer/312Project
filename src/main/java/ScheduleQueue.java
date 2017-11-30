@@ -5,8 +5,8 @@ import java.util.Collections;
 public class ScheduleQueue {
     //Divide into seperate parts for A/B grade
     private int totalMem = 4096;
-    private ArrayList<Process> readyQueue = new ArrayList<Process>();
-    private ArrayList<Process> waitQueue = new ArrayList<Process>();
+    public ArrayList<Process> readyQueue = new ArrayList<Process>();
+    public ArrayList<Process> waitQueue = new ArrayList<Process>();
     private ArrayList<Process> jobQueue = new ArrayList<Process>();
 
 
@@ -37,6 +37,16 @@ public class ScheduleQueue {
     }
     public void setJobQueue(ArrayList<Process> p){
         Collections.copy(this.jobQueue, p);
+    }
+    public void updateQueue(){
+        if(readyQueue.size() == 0){
+            if(waitQueue.size() != 0){
+                enqueueReady(waitQueue.remove(0));
+            }else{
+                // generate random process.
+            }
+        }
+
     }
 
 }
