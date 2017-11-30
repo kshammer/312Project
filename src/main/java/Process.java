@@ -14,6 +14,7 @@ public class Process {
     private int arrival;
     private int size;
     private String name;
+    private int runTime;
     private ArrayList<String> commands = new ArrayList<String>();
     private boolean critical = false;
 
@@ -50,6 +51,9 @@ public class Process {
     public void setCommands(ArrayList<String> coolCommands){
         //copies by value should only be called once per process
         commands.addAll(coolCommands);
+    }
+    public void addCommand(String command){
+        commands.add(0, command);
     }
     public void setSize(int size){
         if(size > 0){
@@ -89,5 +93,9 @@ public class Process {
     }
     public boolean getCritical(){
         return this.critical;
+    }
+    public int getRunTime(){return this.runTime;}
+    public void setRunTime(int run){
+        this.runTime = run;
     }
 }
