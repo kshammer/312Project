@@ -29,7 +29,7 @@ public class ScheduleQueue {
     public Process dequeueWaiting() {
         return waitQueue.remove(0);
     }
-    public Process dequeueReady(){ return waitQueue.remove(0);
+    public Process dequeueReady(){ return readyQueue.remove(0);
 
     }
     public int getTotalMem(){
