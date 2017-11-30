@@ -9,8 +9,12 @@ public class OS {
     public Scheduler scheduler = new Scheduler();
     public OS(){
         getCommands();
-        cpu.Cycle();
-
+        runCPU();
+    }
+    public void runCPU(){
+        while(true){
+            cpu.Cycle();
+        }
     }
 
     //loads all the Programs in programs folder into process objects
