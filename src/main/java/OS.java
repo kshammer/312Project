@@ -48,7 +48,7 @@ public class OS {
         for(int i = 0; i < processes.size(); i++){
             if(process.equals(processes.get(i).getName())){
                 scheduler.programs.enqueueReady(processes.get(i));
-                System.out.println("ADDING THIS TO READ "  + processes.get(i).getName());
+                //System.out.println("ADDING THIS TO READ "  + processes.get(i).getName());
                 break;
             }
         }
