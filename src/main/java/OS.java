@@ -1,6 +1,7 @@
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
 
 public class OS {
 
@@ -12,6 +13,13 @@ public class OS {
         scheduler.programs.setJobQueue(processes);
     }
     public void runCPU(){
+        try{
+            TimeUnit.SECONDS.sleep(1);
+        }
+        catch(Exception e){
+
+        }
+
         if(cpu.checkFirst()){
 
             cpu.setCurrentProcess(scheduler.getNextProcess());
@@ -39,7 +47,7 @@ public class OS {
         }
         if(update != null){
             if(update.contains("OUT")){
-                // GUITEST.output(update);
+                GUITEST.output(update);
             }
 
 
