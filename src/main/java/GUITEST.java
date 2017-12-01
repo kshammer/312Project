@@ -50,6 +50,7 @@ public class GUITEST extends Application {
     private HBox upField;
     private VBox lowField;
     private TextField input;
+    public static BarChart<String,Number> bc;
 
     public static void main(String[] args){
         launch(args);
@@ -62,12 +63,15 @@ public class GUITEST extends Application {
         stage.setHeight(900);
         
         final CategoryAxis xAxis = new CategoryAxis();
-        final NumberAxis yAxis = new NumberAxis();
-        final BarChart<String,Number> bc = 
-            new BarChart<String,Number>(xAxis,yAxis);
-        bc.setTitle("Country Summary");
-        xAxis.setLabel("Country");       
-        yAxis.setLabel("Value");
+        final NumberAxis yAxis = new NumberAxis(0.0, 4100.0, 1.0);
+        bc = new BarChart<String,Number>(xAxis,yAxis);
+        bc.setTitle("Memory In Use");
+        xAxis.setLabel("Used");       
+        yAxis.setLabel("Memory");
+        
+        XYChart.Series series = new XYChart.Series();
+        series.setName("Memory");
+        series.getData().add(new XYChart.Data(mem, 4096 - os.MEM()));
         
         TableView<Process> processTable = new TableView<>();
         ObservableList<Process> processList = FXCollections.observableArrayList();
@@ -139,10 +143,11 @@ public class GUITEST extends Application {
         inField.setSpacing(10);
         inField.getChildren().addAll(input);
         
+        bc.getData().addAll(series);
         upField = new HBox();
         upField.setSpacing(10);
         upField.setPadding(new Insets(10, 10, 10, 10));
-        upField.getChildren().addAll(jobsBox, waitBox, readyBox);
+        upField.getChildren().addAll(jobsBox, waitBox, readyBox, bc);
         
         
         
@@ -191,7 +196,6 @@ public class GUITEST extends Application {
                                 {
                                     
                                     os.LOAD(command[1]);
-                                    update();
                                 }
                             else if(i==3)
                                 if(command.length < 2)
@@ -207,6 +211,7 @@ public class GUITEST extends Application {
                     if(!valid)
                         textArea.appendText("Error: Invalid command\n");
                     input.clear();
+                    update();
                 }
             }
         });
@@ -237,7 +242,15 @@ public class GUITEST extends Application {
         readyTable.setItems(readyProcessList);
         waitTable.setItems(waitProcessList);
         jobsTable.setItems(allProcessList);
-
+        
+        
+        bc.getData().clear();
+        XYChart.Series series = new XYChart.Series();
+        series.setName("Memory");
+        series.getData().add(new XYChart.Data(mem, 4096 - os.MEM()));
+        
+        bc.getData().addAll(series);
+        
 
     }
     
