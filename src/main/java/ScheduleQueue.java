@@ -30,7 +30,7 @@ public class ScheduleQueue {
         return waitQueue.remove(0);
     }
     public Process dequeueReady(){
-
+        totalMem += readyQueue.get(0).getSize();
         return readyQueue.remove(0);
 
     }
