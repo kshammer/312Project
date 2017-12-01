@@ -36,7 +36,10 @@ public class ScheduleQueue {
         return this.totalMem;
     }
     public void setJobQueue(ArrayList<Process> p){
-        Collections.copy(this.jobQueue, p);
+        jobQueue.clear();
+        for(int i = 0; i < p.size(); i++){
+            jobQueue.add(p.get(i));
+        }
     }
     public void updateQueue(){
         if(readyQueue.size() == 0){

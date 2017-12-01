@@ -6,8 +6,8 @@ public class kyleTest {
     public static void main(String[] args){
        OS test = new OS();
        test.LOAD("kek");
-       test.scheduler.viewNextProcess().
-       test.EXE(5);
-       test.
+      // test.scheduler.viewNextProcess().
+      // test.EXE(5);
+      // test.
     }
 }
