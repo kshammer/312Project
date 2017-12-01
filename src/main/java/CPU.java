@@ -29,7 +29,7 @@ public class CPU {
     public String Execute(){
 
         String command = current.getNextCommand();
-        System.out.println("THIS IS THE COMMAND " + command);
+       // System.out.println("THIS IS THE COMMAND " + command);
         String pattern = "(CALCULATE.\\d+)";
         String pattern2 = "(OUT)";
         String pattern3 = "(EXE)";

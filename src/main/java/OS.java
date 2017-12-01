@@ -37,7 +37,7 @@ public class OS {
         }
         if(update != null){
             //print to screen
-            System.out.println(update);
+           // System.out.println(update);
 
         }
         if(scheduler.getQuantum() > 0){

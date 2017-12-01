@@ -4,15 +4,48 @@ import java.util.regex.Pattern;
 
 public class kyleTest {
     public static void main(String[] args){
-       OS test = new OS();
-      // test.LOAD("kek");
-       test.LOAD("2EX");
-       test.LOAD("8RW");
-       test.LOAD("BY5");
-       test.LOAD("PF0");
-       System.out.println("THIS SHOULD BE THE NAME " + test.scheduler.viewNextProcess().getName());
-       System.out.println("THIS IS THE TOTAL RUNTIME " + test.scheduler.viewNextProcess().getTotalRunTime());
-       test.EXE(500);
-       System.out.println(test.scheduler.viewNextProcess().getRunTime());
+        OS test = new OS();
+        // test.LOAD("kek");
+        test.LOAD("2EX");
+        test.LOAD("8RW");
+        System.out.println("THIS IS THE QUEUE");
+        for(int i = 0; i < test.scheduler.getReadyQueue().size(); i++){
+
+            System.out.println(test.scheduler.getReadyQueue().get(i).getName());
+        }
+
+        test.EXE(24);
+        System.out.println("THIS IS THE QUEUE");
+        for(int i = 0; i < test.scheduler.getReadyQueue().size(); i++){
+
+            System.out.println(test.scheduler.getReadyQueue().get(i).getName());
+        }
+
+        test.EXE(24);
+        System.out.println("THIS IS THE QUEUE");
+        for(int i = 0; i < test.scheduler.getReadyQueue().size(); i++){
+
+            System.out.println(test.scheduler.getReadyQueue().get(i).getName());
+        }
+
+
+        test.EXE(24);
+        System.out.println("THIS IS THE QUEUE");
+        for(int i = 0; i < test.scheduler.getReadyQueue().size(); i++){
+
+            System.out.println(test.scheduler.getReadyQueue().get(i).getName());
+        }
+
+        test.EXE(24);
+        System.out.println("THIS IS THE QUEUE");
+        for(int i = 0; i < test.scheduler.getReadyQueue().size(); i++){
+
+            System.out.println(test.scheduler.getReadyQueue().get(i).getName());
+        }
+
+    }
+    public static void printQueue(ArrayList<Process> p){
+        System.out.println("THIS IS THE QUEUEE");
+        for(int i = 0; i< p.)
     }
 }
