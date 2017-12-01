@@ -85,6 +85,8 @@ public class GUITEST extends Application {
         arrivalCol.setCellValueFactory(new PropertyValueFactory<Process, String>("arrival"));
         TableColumn statusCol = new TableColumn("Status");
         statusCol.setCellValueFactory(new PropertyValueFactory<Process, String>("state"));
+        TableColumn ioCol = new TableColumn("IO");
+        ioCol.setCellValueFactory(new PropertyValueFactory<Process, String>("IO"));
         
         TableColumn nameCol2 = new TableColumn("Process");
         nameCol2.setCellValueFactory(new PropertyValueFactory<Process, String>("name"));
@@ -106,7 +108,7 @@ public class GUITEST extends Application {
         readyTable = new TableView();
 
         readyTable.setItems(this.readyProcessList);
-        readyTable.getColumns().addAll(nameCol, sizeCol, arrivalCol, statusCol);
+        readyTable.getColumns().addAll(nameCol, sizeCol, arrivalCol, statusCol, ioCol);
 
 
         waitTable = new TableView();
