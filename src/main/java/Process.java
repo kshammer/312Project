@@ -3,16 +3,20 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 enum State{
-    NEW, RUNNING, WAITING, READY, TERMINATED, BLOCKED
+    NEW, READY, RUN, WAIT, EXIT,
+}
+enum Priority{
+    HIGH, MED, LOW
 }
 public class Process {
     private State state;
+    private Priority pri;
     private int arrival;
     private int size;
-    private int nextCommand = 0;
     private String name;
     private int runTime;
     private ArrayList<String> commands = new ArrayList<String>();
+    private boolean critical = false;
 
     public Process(){
 
@@ -25,6 +29,13 @@ public class Process {
         setCommands(commands);
         this.state = this.state.NEW;
 
+
+    }
+    public void setPriority(Priority pri){
+        this.pri = pri;
+    }
+    public Priority getPriority(){
+        return this.pri;
     }
     public void setName(String name){
         this.name = name;
@@ -41,6 +52,9 @@ public class Process {
         //copies by value should only be called once per process
         commands.addAll(coolCommands);
     }
+    public void addCommand(String command){
+        commands.add(0, command);
+    }
     public void setSize(int size){
         if(size > 0){
             this.size = size;
@@ -56,21 +70,16 @@ public class Process {
         return this.size;
     }
     public String getNextCommand(){
-        return commands.get(nextCommand);
+        if(commands.size() > 0) {
+            return commands.remove(0);
+        }else{
+            return "done";
+        }
     }
     public String getName(){
         return this.name;
     }
-    public void caclulateRunTime(){
-        if(!commands.isEmpty()){
-            for (String command1 : commands) {
-                String[] command = command1.split("\\s+");
-                if (command[0].equals("CALCULATE")) {
-                    runTime += Integer.parseInt(command[1]);
-                }
-            }
-        }
-    }
+
     public void setState(State state){
         this.state = state;
     }
@@ -79,6 +88,14 @@ public class Process {
         return this.state;
     }
 
-
-
+    public void setCritical(boolean critical) {
+        this.critical = critical;
+    }
+    public boolean getCritical(){
+        return this.critical;
+    }
+    public int getRunTime(){return this.runTime;}
+    public void setRunTime(int run){
+        this.runTime = run;
+    }
 }

@@ -3,19 +3,21 @@ import java.util.Collections;
 
 
 public class ScheduleQueue {
+    //Divide into seperate parts for A/B grade
     private int totalMem = 4096;
-    private ArrayList<Process> readyQueue = new ArrayList<Process>();
-    private ArrayList<Process> waitQueue = new ArrayList<Process>();
-    private ArrayList<Process> ioQueue = new ArrayList<Process>();
+    public ArrayList<Process> readyQueue = new ArrayList<Process>();
+    public ArrayList<Process> waitQueue = new ArrayList<Process>();
+    private ArrayList<Process> jobQueue = new ArrayList<Process>();
+
 
     public ScheduleQueue(){
 
     }
     public void enqueueReady(Process process){
-        if (process.getSize() < totalMem) {
+        if (process.getSize() < this.totalMem) {
             process.setState(State.READY);
             readyQueue.add(process);
-            totalMem -= process.getSize();
+            this.totalMem -= process.getSize();
         } else {
             enqueueWaiting(process);
         }
@@ -24,36 +26,27 @@ public class ScheduleQueue {
     public void enqueueWaiting(Process process) {
         waitQueue.add(process);
     }
-    public void enqueueIO(Process process) {
-        ioQueue.add(process);
-    }
     public Process dequeueWaiting() {
         return waitQueue.remove(0);
     }
-    public Process dequeueIO(){
-        return ioQueue.remove(0);
+    public Process dequeueReady(){ return readyQueue.remove(0);
+
     }
-    public Process dequeueReady(){
-        // rotate queue, round robin (only if there are unblocked processes)
-        int unblocked = 0;
-        for (Process p : this.readyQueue) {
-            if (p.getState() != State.BLOCKED) {
-                unblocked++;
-            }
-        }
-        if (unblocked > 0) {
-            Collections.rotate(this.readyQueue, 1);
-        }
-
-        // return process
-        for (Process p : this.readyQueue) {
-            if (p.getState() != State.BLOCKED) {
-                //freeMemory += p.getSize();
-                return p;
+    public int getTotalMem(){
+        return this.totalMem;
+    }
+    public void setJobQueue(ArrayList<Process> p){
+        Collections.copy(this.jobQueue, p);
+    }
+    public void updateQueue(){
+        if(readyQueue.size() == 0){
+            if(waitQueue.size() != 0){
+                enqueueReady(waitQueue.remove(0));
+            }else{
+                // generate random process.
             }
         }
 
-        return null;
     }
 
 }
