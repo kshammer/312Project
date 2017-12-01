@@ -30,7 +30,7 @@ public class ScheduleQueue {
         return waitQueue.remove(0);
     }
     public Process dequeueReady(){
-        //System.out.println("THIS IS THE NAME OF THE OBJECT IN READY " + readyQueue.get(0).getName());
+
         return readyQueue.remove(0);
 
     }

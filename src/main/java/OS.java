@@ -13,13 +13,13 @@ public class OS {
     }
     public void runCPU(){
         if(cpu.checkFirst()){
-            //System.out.println("ADDING FIRST PROCESS");
+
             cpu.setCurrentProcess(scheduler.getNextProcess());
-            //System.out.println("THIS IS THE CURRENT PROCESS ON CPU" + cpu.getCurrentProcess().getName());
+
             cpu.setFirst(false);
         }
         String update = cpu.Cycle();
-        System.out.println("THIS IS UPDATE " + update);
+
         if(update.equals("done")){
             cpu.Swap(scheduler.getNextProcess());
             scheduler.resetQuantum();
@@ -48,7 +48,7 @@ public class OS {
         for(int i = 0; i < processes.size(); i++){
             if(process.equals(processes.get(i).getName())){
                 scheduler.programs.enqueueReady(processes.get(i));
-                //System.out.println("ADDING THIS TO READ "  + processes.get(i).getName());
+
                 break;
             }
         }
@@ -77,7 +77,7 @@ public class OS {
         if (folder == null){
             throw new IllegalArgumentException("No programs to run or no programs folder");
         }
-        //System.out.println(folder.listFiles());
+
         //puts all the files into an array
         File[] listOfFiles = folder.listFiles();
         //for each file
@@ -101,7 +101,7 @@ public class OS {
                         while(readFile.hasNextLine()){
                             // check to make sure all the commands are valid
                             String nextCommand = readFile.nextLine();
-                            //System.out.println(nextCommand);
+
                             commands.add(nextCommand);
                         }
                         commands.remove(0);

@@ -64,9 +64,9 @@ public class Process {
         //copies by value should only be called once per process
         this.commands.clear();
         for(int i = 0; i < coolCommands.size(); i++){
-            //System.out.println("ADDING A COMMAND " +coolCommands.get(i));
+
             this.commands.add(coolCommands.get(i));
-            //System.out.println("CHECKING ADDITION " + this.commands.get(i));
+
         }
         calcRuntime();
     }
@@ -88,9 +88,9 @@ public class Process {
         return this.size;
     }
     public String getNextCommand(){
-       // System.out.println("FINDING NEXT COMMAND");
+
         if(this.commands.size() > 0) {
-            System.out.println("This is the next command " + this.commands.get(0));
+
             return this.commands.remove(0);
         }else{
             return "done";
