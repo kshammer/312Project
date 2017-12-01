@@ -103,6 +103,7 @@ public class CPU {
         return "WAITING";
     }
     public Process Swap(Process p){
+        System.out.println("SWAPPING IN " + p.getName());
         Process Holder = this.current;
         this.current = p;
         return Holder;

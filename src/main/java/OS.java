@@ -18,6 +18,10 @@ public class OS {
 
             cpu.setFirst(false);
         }
+        if(scheduler.getQuantum() == 0){
+            scheduler.resetQuantum();
+            scheduler.programs.enqueueReady(cpu.Swap(scheduler.getNextProcess()));
+        }
         String update = cpu.Cycle();
         scheduler.programs.enqueueReady(cpu.getCurrentProcess());
         if(update.equals("IO")){
