@@ -20,6 +20,9 @@ public class Scheduler {
         if(programs.readyQueue.size() != 0){
 
             return programs.dequeueReady();
+        }else if(programs.waitQueue.isEmpty()) {
+
+            return null;
         }else{
             programs.updateQueue();
             return programs.dequeueReady();

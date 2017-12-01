@@ -26,6 +26,7 @@ public class OS {
             if(scheduler.getReadyQueue().isEmpty()){
                 scheduler.addProcess(cpu.getCurrentProcess());
             }else{
+
                 scheduler.addProcess(cpu.Swap(scheduler.getNextProcess()));
             }
 
