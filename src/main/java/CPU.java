@@ -85,15 +85,16 @@ public class CPU {
     }
     public String Cycle(){
         cpuTime.advanceTick();
-       /* if(randomIO.check()){
+        current.setRunTime();
+       if(randomIO.check()){
             IOCycles += burst.genNumber();
             current.doingIO();
         }
-        */
         if(IOCycles != 0){
             IOCycles--;
         }
         else {
+
             return Execute();
         }
         return null;

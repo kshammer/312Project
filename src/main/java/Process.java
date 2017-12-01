@@ -124,8 +124,8 @@ public class Process {
         return this.critical;
     }
     public int getRunTime(){return this.runTime;}
-    public void setRunTime(int run){
-        this.runTime = run;
+    public void setRunTime(){
+        this.runTime++;
     }
 
 }

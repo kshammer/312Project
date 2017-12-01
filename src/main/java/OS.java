@@ -19,7 +19,7 @@ public class OS {
             cpu.setFirst(false);
         }
         String update = cpu.Cycle();
-
+        scheduler.programs.enqueueReady(cpu.getCurrentProcess());
         if(update.equals("done")){
             cpu.Swap(scheduler.getNextProcess());
             scheduler.resetQuantum();

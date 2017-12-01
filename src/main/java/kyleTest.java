@@ -8,7 +8,7 @@ public class kyleTest {
        test.LOAD("kek");
        System.out.println("THIS SHOULD BE THE NAME " + test.scheduler.viewNextProcess().getName());
        System.out.println("THIS IS THE TOTAL RUNTIME " + test.scheduler.viewNextProcess().getTotalRunTime());
-       test.EXE(5);
+       test.EXE(500);
        System.out.println(test.scheduler.viewNextProcess().getRunTime());
     }
 }
