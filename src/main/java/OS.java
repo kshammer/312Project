@@ -12,6 +12,9 @@ public class OS {
         scheduler.programs.setJobQueue(processes);
     }
     public void runCPU(){
+        if(cpu.getCurrentProcess() == null){
+            cpu.setCurrentProcess(scheduler.getNextProcess());
+        }
         String update = cpu.Cycle();
         if(update.equals("done")){
             cpu.Swap(scheduler.getNextProcess());
@@ -90,9 +93,11 @@ public class OS {
                         Scanner readFile = new Scanner(file);
                         ArrayList<String> commands = new ArrayList<String>();
                         holder.setSize(readFile.nextInt());
-                        while(readFile.hasNext()){
+                        while(readFile.hasNextLine()){
                             // check to make sure all the commands are valid
-                            commands.add(readFile.next());
+                            String nextCommand = readFile.nextLine();
+                            System.out.println(nextCommand);
+                            commands.add(nextCommand);
                         }
                         holder.setCommands(commands);
                     }

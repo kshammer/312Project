@@ -1,6 +1,8 @@
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 enum State{
     NEW, READY, RUN, WAIT, EXIT,
@@ -18,6 +20,7 @@ public class Process {
     private ArrayList<String> commands = new ArrayList<String>();
     private boolean critical = false;
     private int IO = 0;
+    private int totalRunTime;
 
     public Process(){
 
@@ -44,6 +47,19 @@ public class Process {
     public void setArrival(int time){
         Clock.getTick();
     }
+    public void calcRuntime(){
+        String pattern = "(CALCULATE.\\d+)";
+        Pattern r = Pattern.compile(pattern);
+
+        for(int i = 0; i < commands.size(); i++){
+            Matcher m = r.matcher(commands.get(i));
+            if(m.find()){
+                String[] command = commands.get(i).split("\\s+");
+                int calculations = Integer.parseInt(command[1]);
+                totalRunTime += calculations;
+            }
+        }
+    }
     public void setCommands(ArrayList<String> coolCommands){
         //copies by value should only be called once per process
         commands.addAll(coolCommands);
@@ -67,6 +83,7 @@ public class Process {
     }
     public String getNextCommand(){
         if(commands.size() > 0) {
+            System.out.println("This is the next command " + commands.get(0));
             return commands.remove(0);
         }else{
             return "done";
@@ -88,6 +105,9 @@ public class Process {
     }
     public int getIO(){
         return this.IO;
+    }
+    public int getTotalRunTime(){
+        return this.totalRunTime;
     }
 
     public void setCritical(boolean critical) {

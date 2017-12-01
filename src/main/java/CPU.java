@@ -20,16 +20,19 @@ public class CPU {
         this.current = proc;
     }
     public String Execute(){
-        
+
         String command = current.getNextCommand();
         String pattern = "(CALCULATE.\\d+)";
         String pattern2 = "(OUT)";
+        String pattern3 = "(EXE)";
         Pattern q = Pattern.compile(pattern2);
         Matcher n = q.matcher(command);
         Pattern r = Pattern.compile(pattern);
         Matcher m = r.matcher(command);
+        Pattern z = Pattern.compile(pattern3);
+        Matcher y = z.matcher(command);
 
-        if(command.equals("EXE")){
+        if(y.find()){
             //change what is on and set proccess to exit
             current.setState(State.EXIT);
             return "done";
@@ -58,6 +61,7 @@ public class CPU {
         }
         else if(n.find()){
             // Print something out to console
+            System.out.println(command);
             return command;
 
 
