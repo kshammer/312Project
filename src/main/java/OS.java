@@ -50,6 +50,7 @@ public class OS {
     public void LOAD(String process){
         for(int i = 0; i < processes.size(); i++){
             if(process.equals(processes.get(i).getName())){
+                processes.get(i).setArrival(Clock.getTick());
                 scheduler.programs.enqueueReady(processes.get(i));
 
                 break;
