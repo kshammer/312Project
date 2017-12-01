@@ -19,14 +19,14 @@ public class jobfiles {
 			}
 			
 			int  lines = rand.nextInt(300) + 1;
-			PrintWriter writer = new PrintWriter(filename +".txt");
+			PrintWriter writer = new PrintWriter("..\\312Project\\programs\\" + filename +".txt");
 			writer.println(lines);
 			
 			for(int i = 0; i < lines; i++) {
 				int choice = rand.nextInt(4);
 				if(choice == 0)
 				{
-					writer.println("CALCULATE" + (rand.nextInt(100)+1));
+					writer.println("CALCULATE " + (rand.nextInt(100)+1));
 				}
 				else if(choice == 1)
 				{
@@ -49,8 +49,8 @@ public class jobfiles {
 			
 		}
 	}
-/*	public static void main(String[] args){
+	public static void main(String[] args){
 		createJobFiles();
 	}
-*/
+
 }
