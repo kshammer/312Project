@@ -86,18 +86,20 @@ public class CPU {
     public String Cycle(){
         cpuTime.advanceTick();
         current.setRunTime();
-       if(randomIO.check()){
-            IOCycles += burst.genNumber();
-            current.doingIO();
-        }
-        if(IOCycles != 0){
-            IOCycles--;
+        if(current.getState() != State.WAIT) {
+            if (randomIO.check()) {
+                IOCycles += burst.genNumber();
+                current.doingIO();
+            }
+            if (IOCycles != 0) {
+                IOCycles--;
+            }
         }
         else {
 
             return Execute();
         }
-        return null;
+        return "IO";
     }
     public Process Swap(Process p){
         Process Holder = this.current;
