@@ -69,6 +69,7 @@ public class OS {
             runCPU();
             if(scheduler.programs.readyQueue.isEmpty() && cpu.getCurrentProcess().getState() == State.EXIT){
                 cpu.isEmpty();
+                break;
             }
         }
     }
