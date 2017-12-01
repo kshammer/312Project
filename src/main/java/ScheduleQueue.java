@@ -41,9 +41,7 @@ public class ScheduleQueue {
     public void updateQueue(){
         if(readyQueue.size() == 0){
             if(waitQueue.size() != 0){
-                enqueueReady(waitQueue.remove(0));
-            }else{
-                // generate random process.
+                enqueueReady(dequeueWaiting());
             }
         }
 
