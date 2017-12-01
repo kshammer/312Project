@@ -33,17 +33,17 @@ import static javafx.application.Application.launch;
 
 public class GUITEST extends Application {
     
-    public final ObservableList<Process> allProcessList = FXCollections.observableArrayList();
-    public final ObservableList<Process> readyProcessList = FXCollections.observableArrayList();
-    public final ObservableList<Process> waitProcessList = FXCollections.observableArrayList();
+    public static final ObservableList<Process> allProcessList = FXCollections.observableArrayList();
+    public static final ObservableList<Process> readyProcessList = FXCollections.observableArrayList();
+    public static final ObservableList<Process> waitProcessList = FXCollections.observableArrayList();
     private final ObservableList<Process> waitingProcessList = FXCollections.observableArrayList();
     
     static protected TextArea textArea;
     final static String mem = "Memory";
     static OS os = new OS();
-    private TableView readyTable;
-    private TableView waitTable;
-    private TableView jobsTable;
+    private static TableView readyTable;
+    private static TableView waitTable;
+    private static TableView jobsTable;
     private BorderPane layout;
     private Stage window;
     private HBox inField;

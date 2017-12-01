@@ -19,6 +19,7 @@ public class OS {
         catch(Exception e){
 
         }
+        GUITEST.update();
 
         if(cpu.checkFirst()){
 
