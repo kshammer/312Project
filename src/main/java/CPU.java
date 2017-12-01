@@ -2,16 +2,23 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class CPU {
-    private Process current;
+    private Process current = null;
     public Clock cpuTime = new Clock();
     private int IOCycles;
     private randomIO randomIO = new randomIO();
     private IOBurst burst = new IOBurst();
+    private boolean first = true;
 
 
     public CPU(){
 
 
+    }
+    public boolean checkFirst(){
+        return first;
+    }
+    public void setFirst(boolean b){
+        this.first = b;
     }
     public Process getCurrentProcess(){
         return this.current;
@@ -22,6 +29,7 @@ public class CPU {
     public String Execute(){
 
         String command = current.getNextCommand();
+        System.out.println("THIS IS THE COMMAND " + command);
         String pattern = "(CALCULATE.\\d+)";
         String pattern2 = "(OUT)";
         String pattern3 = "(EXE)";
@@ -40,6 +48,7 @@ public class CPU {
             current.setState(State.WAIT);
             current.doingIO();
             IOCycles += burst.genNumber();
+            return "IO";
 
         }
         else if(m.find()){
@@ -53,6 +62,7 @@ public class CPU {
                 sb.append(calc);
                 current.addCommand(sb.toString());
             }
+            return "CALCULATE";
 
         }
         else if(command.equals("YIELD")){
@@ -75,10 +85,11 @@ public class CPU {
     }
     public String Cycle(){
         cpuTime.advanceTick();
-        if(randomIO.check()){
+       /* if(randomIO.check()){
             IOCycles += burst.genNumber();
             current.doingIO();
         }
+        */
         if(IOCycles != 0){
             IOCycles--;
         }

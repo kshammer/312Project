@@ -12,10 +12,13 @@ public class OS {
         scheduler.programs.setJobQueue(processes);
     }
     public void runCPU(){
-        if(cpu.getCurrentProcess() == null){
+        if(cpu.checkFirst()){
+            //System.out.println("ADDING FIRST PROCESS");
             cpu.setCurrentProcess(scheduler.getNextProcess());
+            cpu.setFirst(false);
         }
         String update = cpu.Cycle();
+        System.out.println("THIS IS UPDATE " + update);
         if(update.equals("done")){
             cpu.Swap(scheduler.getNextProcess());
             scheduler.resetQuantum();
@@ -44,6 +47,7 @@ public class OS {
         for(int i = 0; i < processes.size(); i++){
             if(process.equals(processes.get(i).getName())){
                 scheduler.programs.enqueueReady(processes.get(i));
+                System.out.println("ADDING THIS TO READ "  + processes.get(i).getName());
                 break;
             }
         }

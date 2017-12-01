@@ -18,6 +18,7 @@ public class Scheduler {
     }
     public Process getNextProcess(){
         if(programs.readyQueue.size() != 0){
+            System.out.println("THERE IS OSMETHING IN THE REEADYYD");
             return programs.dequeueReady();
         }else{
             programs.updateQueue();
