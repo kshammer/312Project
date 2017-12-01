@@ -147,7 +147,7 @@ public class Process {
             process2.addCommand(p.getNextCommand());
             process3.addCommand(p.getNextCommand());
         }
-        return null;
+        retur
 
 
     }
