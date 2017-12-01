@@ -147,12 +147,18 @@ public class Process {
             process2.addCommand(p.getNextCommand());
             process3.addCommand(p.getNextCommand());
         }
-        Process[] family = new Process[4];
-        family[0] = p;
-        family[1] = process1;
-        family[2] = process2;
-        family[3] = process3;
-        return family;
+        Process[] familys = new Process[4];
+        familys[0] = p;
+        familys[1] = process1;
+        familys[2] = process2;
+        familys[3] = process3;
+        for(int z = 0; z < familys.length; z++){
+            p.family.add(familys[z].getName());
+            process1.family.add(familys[z].getName());
+            process2.family.add(familys[z].getName());
+            process3.family.add(familys[z].getName());
+        }
+        return familys;
 
 
     }
