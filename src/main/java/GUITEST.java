@@ -21,7 +21,10 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.CategoryAxis;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.stream.Collectors;
@@ -36,7 +39,7 @@ public class GUITEST extends Application {
     private final ObservableList<Process> waitingProcessList = FXCollections.observableArrayList();
     
     static protected TextArea textArea;
-
+    final static String mem = "Memory";
     static OS os = new OS();
     private TableView readyTable;
     private TableView waitTable;
@@ -55,8 +58,16 @@ public class GUITEST extends Application {
     public void start(Stage stage) {
         window = stage;
         layout = new BorderPane();
-        stage.setWidth(450);
-        stage.setHeight(550);
+        stage.setWidth(900);
+        stage.setHeight(900);
+        
+        final CategoryAxis xAxis = new CategoryAxis();
+        final NumberAxis yAxis = new NumberAxis();
+        final BarChart<String,Number> bc = 
+            new BarChart<String,Number>(xAxis,yAxis);
+        bc.setTitle("Country Summary");
+        xAxis.setLabel("Country");       
+        yAxis.setLabel("Value");
         
         TableView<Process> processTable = new TableView<>();
         ObservableList<Process> processList = FXCollections.observableArrayList();
@@ -195,6 +206,7 @@ public class GUITEST extends Application {
                     }
                     if(!valid)
                         textArea.appendText("Error: Invalid command\n");
+                    input.clear();
                 }
             }
         });
@@ -208,7 +220,7 @@ public class GUITEST extends Application {
 
     }
 
-    public void update() {
+    public static void update() {
 
         ObservableList<Process> readyUpdate = FXCollections.observableArrayList(os.scheduler.getReadyQueue());
         ObservableList<Process> waitUpdate = FXCollections.observableArrayList(os.scheduler.getWaitQueue());
