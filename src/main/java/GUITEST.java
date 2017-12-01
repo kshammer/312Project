@@ -199,7 +199,7 @@ public class GUITEST extends Application {
                                 }
                             else if(i==3)
                                 if(command.length < 2)
-                                    textArea.appendText("Invalid Exe\n");
+                                    os.EXE();
                                 else
                                     os.EXE(Integer.valueOf(command[1]));
                             else if(i==4)
