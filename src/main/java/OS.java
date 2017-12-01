@@ -13,8 +13,7 @@ public class OS {
         scheduler.programs.setJobQueue(processes);
     }
     public void runCPU(){
-
-        GUITEST.update();
+        
 
         if(cpu.checkFirst()){
 

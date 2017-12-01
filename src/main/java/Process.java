@@ -21,6 +21,7 @@ public class Process {
     private boolean critical = false;
     private int IO = 0;
     private int totalRunTime;
+    private ArrayList<String> family = new ArrayList<String>();
 
     public Process(){
 
