@@ -29,7 +29,9 @@ public class ScheduleQueue {
     public Process dequeueWaiting() {
         return waitQueue.remove(0);
     }
-    public Process dequeueReady(){ return readyQueue.remove(0);
+    public Process dequeueReady(){
+        System.out.println("THIS IS THE NAME OF THE OBJECT IN READY " + readyQueue.get(0).getName());
+        return readyQueue.remove(0);
 
     }
     public int getTotalMem(){
