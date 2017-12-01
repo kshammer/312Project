@@ -8,44 +8,39 @@ public class kyleTest {
         // test.LOAD("kek");
         test.LOAD("2EX");
         test.LOAD("8RW");
-        System.out.println("THIS IS THE QUEUE");
-        for(int i = 0; i < test.scheduler.getReadyQueue().size(); i++){
-
-            System.out.println(test.scheduler.getReadyQueue().get(i).getName());
-        }
-
+        test.LOAD("kek");
+        printQueue(test.scheduler.getReadyQueue());
         test.EXE(24);
-        System.out.println("THIS IS THE QUEUE");
-        for(int i = 0; i < test.scheduler.getReadyQueue().size(); i++){
-
-            System.out.println(test.scheduler.getReadyQueue().get(i).getName());
-        }
-
+        printQueue(test.scheduler.getReadyQueue());
         test.EXE(24);
-        System.out.println("THIS IS THE QUEUE");
-        for(int i = 0; i < test.scheduler.getReadyQueue().size(); i++){
-
-            System.out.println(test.scheduler.getReadyQueue().get(i).getName());
-        }
-
-
+        printQueue(test.scheduler.getReadyQueue());
         test.EXE(24);
-        System.out.println("THIS IS THE QUEUE");
-        for(int i = 0; i < test.scheduler.getReadyQueue().size(); i++){
-
-            System.out.println(test.scheduler.getReadyQueue().get(i).getName());
-        }
-
+        printQueue(test.scheduler.getReadyQueue());
         test.EXE(24);
-        System.out.println("THIS IS THE QUEUE");
-        for(int i = 0; i < test.scheduler.getReadyQueue().size(); i++){
+        printQueue(test.scheduler.getReadyQueue());
+        test.EXE(24);
+        printQueue(test.scheduler.getReadyQueue());
+        test.EXE(24);
+        printQueue(test.scheduler.getReadyQueue());
+        test.EXE(24);
+        printQueue(test.scheduler.getReadyQueue());
+        test.EXE(24);
+        printQueue(test.scheduler.getReadyQueue());
+        test.EXE(24);
+        printQueue(test.scheduler.getReadyQueue());
+        test.EXE(24);
+        printQueue(test.scheduler.getReadyQueue());
+        test.EXE(24);
+        printQueue(test.scheduler.getReadyQueue());
+        test.EXE(24);
+        printQueue(test.scheduler.getReadyQueue());
 
-            System.out.println(test.scheduler.getReadyQueue().get(i).getName());
-        }
 
     }
     public static void printQueue(ArrayList<Process> p){
         System.out.println("THIS IS THE QUEUEE");
-        for(int i = 0; i< p.)
+        for(int i = 0; i< p.size(); i++){
+            System.out.println(i + " " + p.get(i).getName());
+        }
     }
 }

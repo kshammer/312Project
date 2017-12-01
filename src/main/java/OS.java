@@ -22,8 +22,9 @@ public class OS {
             scheduler.resetQuantum();
             scheduler.programs.enqueueReady(cpu.Swap(scheduler.getNextProcess()));
         }
+        //scheduler.programs.enqueueReady(cpu.getCurrentProcess());
         String update = cpu.Cycle();
-        scheduler.programs.enqueueReady(cpu.getCurrentProcess());
+
         if(update.equals("IO")){
 
         }
