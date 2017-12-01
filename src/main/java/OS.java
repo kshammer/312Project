@@ -23,9 +23,7 @@ public class OS {
         for (File file : listOfFiles) {
             if (file.isFile()) {
                 String name = file.getName();
-                System.out.println(name);
                 String[] nameList = name.split("\\.");
-                System.out.println(nameList.toString());
                 if(!nameList[1].equals("txt")){
                     System.out.println("Program file not named correctly");
                 }
