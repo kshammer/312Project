@@ -37,8 +37,10 @@ public class OS {
             scheduler.resetQuantum();
         }
         if(update != null){
-            if(update.contains("OUT"))
-                GUITEST.output(update);
+            if(update.contains("OUT")){
+                // GUITEST.output(update);
+            }
+
 
         }
         if(scheduler.getQuantum() > 0){
