@@ -17,6 +17,7 @@ public class Process {
     private int runTime;
     private ArrayList<String> commands = new ArrayList<String>();
     private boolean critical = false;
+    private int IO = 0;
 
     public Process(){
 
@@ -86,6 +87,12 @@ public class Process {
 
     public State getState(){
         return this.state;
+    }
+    public void doingIO(){
+        this.IO++;
+    }
+    public int getIO(){
+        return this.IO;
     }
 
     public void setCritical(boolean critical) {

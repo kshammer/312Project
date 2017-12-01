@@ -35,6 +35,7 @@ public class CPU {
             return "done";
         }else if (command.equals("IO")) {//do IO Stuff
             current.setState(State.WAIT);
+            current.doingIO();
             IOCycles += burst.genNumber();
 
         }
@@ -72,6 +73,7 @@ public class CPU {
         cpuTime.advanceTick();
         if(randomIO.check()){
             IOCycles += burst.genNumber();
+            current.doingIO();
         }
         if(IOCycles != 0){
             IOCycles--;

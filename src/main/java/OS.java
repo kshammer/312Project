@@ -23,6 +23,7 @@ public class OS {
         }
         if(update != null){
             //print to screen
+            System.out.println(update);
 
         }
         if(scheduler.getQuantum() > 0){
@@ -30,6 +31,11 @@ public class OS {
         }
 
 
+    }
+    public void EXE(int amount){
+        for(int i = 0; i < amount; i++){
+            runCPU();
+        }
     }
     public void LOAD(String process){
         for(int i = 0; i < processes.size(); i++){
