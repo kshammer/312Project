@@ -2,7 +2,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class CPU {
-    private Process current = null;
+    public Process current = null;
     private int IOCycles;
     public static Clock cpuTime = new Clock();
     private randomIO randomIO = new randomIO();
