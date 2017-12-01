@@ -91,15 +91,16 @@ public class CPU {
                 IOCycles += burst.genNumber();
                 current.doingIO();
             }
-            if (IOCycles != 0) {
-                IOCycles--;
-            }
+
+        }
+        if (IOCycles != 0) {
+            IOCycles--;
         }
         else {
 
             return Execute();
         }
-        return "IO";
+        return "WAITING";
     }
     public Process Swap(Process p){
         Process Holder = this.current;
