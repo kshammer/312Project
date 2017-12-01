@@ -76,7 +76,7 @@ public class CPU {
 
 
         }else{
-            System.out.println("Command could not be parsed. ");
+            System.out.println("Command could not be parsed. " + command + " " + current.getName());
         }
         return null;
     }
