@@ -52,9 +52,9 @@ public class GUITEST extends Application {
     private TextField input;
     public static BarChart<String,Number> bc;
 
-    public static void main(String[] args){
-        launch(args);
-    }
+   // public static void main(String[] args){
+      //  launch(args);
+    //}
     @Override
     public void start(Stage stage) {
         window = stage;
