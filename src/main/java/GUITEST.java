@@ -1,4 +1,5 @@
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Group;
@@ -21,14 +22,16 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.stream.Collectors;
 
 import static javafx.application.Application.launch;
 
 public class GUITEST extends Application {
-    public static final ObservableList<Process> allProcessList = FXCollections.observableArrayList();
-    public static final ObservableList<Process> readyProcessList = FXCollections.observableArrayList();
-    public static final ObservableList<Process> waitProcessList = FXCollections.observableArrayList();
+    public final ObservableList<Process> allProcessList = FXCollections.observableArrayList();
+    public final ObservableList<Process> readyProcessList = FXCollections.observableArrayList();
+    public final ObservableList<Process> waitProcessList = FXCollections.observableArrayList();
     private final ObservableList<Process> waitingProcessList = FXCollections.observableArrayList();
     
     static protected TextArea textArea;
@@ -44,9 +47,9 @@ public class GUITEST extends Application {
     private VBox lowField;
     private TextField input;
 
-    /*public static void main(String[] args){
+    public static void main(String[] args){
         launch(args);
-    }*/
+    }
     @Override
     public void start(Stage stage) {
         window = stage;
@@ -65,7 +68,7 @@ public class GUITEST extends Application {
         TableColumn statusCol = new TableColumn("Status");
         statusCol.setCellValueFactory(new PropertyValueFactory<Process, String>("state"));
         this.readyProcessList.setAll(Scheduler.getReadyQueue().stream().collect(Collectors.toList()));
-        //this.allProcessList.setAll(this.os.processes.stream().collect(Collectors.toList()));
+        this.allProcessList.setAll(this.os.processes.stream().collect(Collectors.toList()));
         this.waitProcessList.setAll(Scheduler.getWaitQueue().stream().collect(Collectors.toList()));
         readyTable = new TableView();
         readyTable.setItems(this.readyProcessList);
@@ -76,18 +79,18 @@ public class GUITEST extends Application {
         waitTable.getColumns().addAll(nameCol, sizeCol, arrivalCol, statusCol);
         
         
-        /*jobsTable = new TableView();
+        jobsTable = new TableView();
         jobsTable.setItems(this.allProcessList);
-        jobsTable.getColumns().addAll(nameCol, sizeCol, arrivalCol, statusCol);*/
+        jobsTable.getColumns().addAll(nameCol, sizeCol, arrivalCol, statusCol);
         
         input = new TextField();
         
         
-        /*VBox jobsBox = new VBox();
+        VBox jobsBox = new VBox();
         jobsBox.setSpacing(10);
         Text jobsTitle = new Text("Available Jobs");
         jobsTitle.setStyle("-fx-font-size: 18px");
-        jobsBox.getChildren().addAll(jobsTitle, jobsTable);*/
+        jobsBox.getChildren().addAll(jobsTitle, jobsTable);
         
         VBox waitBox = new VBox();
         waitBox.setSpacing(10);
@@ -108,7 +111,7 @@ public class GUITEST extends Application {
         upField = new HBox();
         upField.setSpacing(10);
         upField.setPadding(new Insets(10, 10, 10, 10));
-        upField.getChildren().addAll(/*jobsBox, */waitBox, readyBox);
+        upField.getChildren().addAll(jobsBox, waitBox, readyBox);
         
         
         
@@ -181,12 +184,40 @@ public class GUITEST extends Application {
         window.setScene(scene);
 
         window.show();
+        try{
+            startup();
+        }
+        catch(Exception e){
+
+        }
+
 
     }
-    
-    public static void update() {
-    readyProcessList.setAll(Scheduler.getReadyQueue().stream().collect(Collectors.toList()));
-    //allProcessList.setAll(os.processes.stream().collect(Collectors.toList()));
-    waitProcessList.setAll(Scheduler.getWaitQueue().stream().collect(Collectors.toList()));
+
+    public void startup() throws InterruptedException {
+        readyProcessList.setAll(Scheduler.getReadyQueue().stream().collect(Collectors.toList()));
+        allProcessList.setAll(os.processes.stream().collect(Collectors.toList()));
+        waitProcessList.setAll(Scheduler.getWaitQueue().stream().collect(Collectors.toList()));
+        Timer timer = new Timer();
+        timer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                Platform.runLater(new Runnable() {
+                    @Override public void run() {
+                        update();
+                    }
+                });
+            }
+        }, 0, 1000);
+
+    }
+    public void update() {
+
+        readyProcessList.setAll(os.scheduler.getReadyQueue().stream().collect(Collectors.toList()));
+        allProcessList.setAll(os.processes.stream().collect(Collectors.toList()));
+        waitProcessList.setAll(os.scheduler.getWaitQueue().stream().collect(Collectors.toList()));
+        readyTable.refresh();
+        waitTable.refresh();
+        jobsTable.refresh();
     }
 }
