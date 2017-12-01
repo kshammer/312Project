@@ -29,11 +29,12 @@ public class OS {
 
         }
         if(update.equals("done")){
+            System.out.println("A PROCESS HAS FINISHEDJ");
             cpu.Swap(scheduler.getNextProcess());
             scheduler.resetQuantum();
         }
         if(update.equals("YIELD")){
-            cpu.Swap(scheduler.getNextProcess());
+            scheduler.programs.enqueueReady(cpu.Swap(scheduler.getNextProcess()));
             scheduler.resetQuantum();
         }
         if(update != null){
