@@ -26,13 +26,13 @@ import java.util.stream.Collectors;
 import static javafx.application.Application.launch;
 
 public class GUITEST extends Application {
-    private final ObservableList<Process> allProcessList = FXCollections.observableArrayList();
-    private final ObservableList<Process> readyProcessList = FXCollections.observableArrayList();
+    public static final ObservableList<Process> allProcessList = FXCollections.observableArrayList();
+    public static final ObservableList<Process> readyProcessList = FXCollections.observableArrayList();
     private final ObservableList<Process> waitingProcessList = FXCollections.observableArrayList();
     
     static protected TextArea textArea;
 
-    OS os = new OS();
+    static OS os = new OS();
     private TableView readyTable;
     private TableView waitTable;
     private TableView jobsTable;
@@ -137,12 +137,35 @@ public class GUITEST extends Application {
             public void handle(KeyEvent event) {
                 if (event.getCode() == KeyCode.ENTER) {
                     boolean valid = false;
+                    String[] command = input.getText().split(" ");
                     for(int i = 0; i < validCommands.length; i++)
                     {
-                        if(input.getText().equals(validCommands[i]))
+                        if(command[0].equalsIgnoreCase(validCommands[i]))
                         {
                             valid = true;
-                            textArea.appendText(validCommands[i] + "\n");
+                            if(i == 0)
+                                textArea.appendText(os.PROC() + "\n");
+                            else if(i == 1)
+                                textArea.appendText(os.MEM() + "\n");
+                            else if(i == 2)
+                                if(command.length < 2)
+                                    textArea.appendText("Invalid Load\n");
+                                else
+                                {
+                                    
+                                    os.LOAD(command[1]);
+                                    textArea.appendText("Loading " + Scheduler.getReadyQueue().toString() + "\n");
+                                    update();
+                                }
+                            else if(i==3)
+                                if(command.length < 2)
+                                    textArea.appendText("Invalid Exe\n");
+                                else
+                                    os.EXE(Integer.valueOf(command[1]));
+                            else if(i==4)
+                                os.RESET();
+                            else if(i == 5)
+                                os.EXIT();
                         }
                     }
                     if(!valid)
@@ -157,4 +180,9 @@ public class GUITEST extends Application {
         window.show();
 
     }
+    
+    public static void update() {
+    readyProcessList.setAll(Scheduler.getReadyQueue().stream().collect(Collectors.toList()));
+    allProcessList.setAll(os.processes.stream().collect(Collectors.toList()));
+}
 }
