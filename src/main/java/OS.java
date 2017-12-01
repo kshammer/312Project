@@ -118,7 +118,6 @@ public class OS {
         //goes into the programs folder
         File folder = new File("./programs");
         if (folder == null){
-            System.out.println("GAGY");
             throw new IllegalArgumentException("No programs to run or no programs folder");
         }
 
