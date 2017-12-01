@@ -14,7 +14,7 @@ public class randomIO {
     public boolean check()
     {
         Random ran = new Random();
-        int j = ran.nextInt(10);
+        int j = ran.nextInt(100);
         
         if(j == 1)
         {
