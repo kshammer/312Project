@@ -32,12 +32,12 @@ import java.util.stream.Collectors;
 import static javafx.application.Application.launch;
 
 public class GUITEST extends Application {
-    
+
     public static final ObservableList<Process> allProcessList = FXCollections.observableArrayList();
     public static final ObservableList<Process> readyProcessList = FXCollections.observableArrayList();
     public static final ObservableList<Process> waitProcessList = FXCollections.observableArrayList();
     private final ObservableList<Process> waitingProcessList = FXCollections.observableArrayList();
-    
+
     static protected TextArea textArea;
     final static String mem = "Memory";
     static OS os = new OS();
@@ -52,8 +52,8 @@ public class GUITEST extends Application {
     private TextField input;
     public static BarChart<String,Number> bc;
 
-   // public static void main(String[] args){
-      //  launch(args);
+    // public static void main(String[] args){
+    //  launch(args);
     //}
     @Override
     public void start(Stage stage) {
@@ -61,22 +61,22 @@ public class GUITEST extends Application {
         layout = new BorderPane();
         stage.setWidth(900);
         stage.setHeight(900);
-        
+
         final CategoryAxis xAxis = new CategoryAxis();
         final NumberAxis yAxis = new NumberAxis(0.0, 4100.0, 100.0);
         bc = new BarChart<String,Number>(xAxis,yAxis);
         bc.setTitle("Memory In Use");
-        xAxis.setLabel("Used");       
+        xAxis.setLabel("Used");
         yAxis.setLabel("Memory");
-        
+
         XYChart.Series series = new XYChart.Series();
         series.setName("Memory");
         series.getData().add(new XYChart.Data(mem, 4096 - os.MEM()));
-        
+
         TableView<Process> processTable = new TableView<>();
         ObservableList<Process> processList = FXCollections.observableArrayList();
         processTable.setItems(processList);
-        
+
         TableColumn nameCol = new TableColumn("Name");
         nameCol.setCellValueFactory(new PropertyValueFactory<Process, String>("name"));
         TableColumn sizeCol = new TableColumn("Size");
@@ -85,7 +85,9 @@ public class GUITEST extends Application {
         arrivalCol.setCellValueFactory(new PropertyValueFactory<Process, String>("arrival"));
         TableColumn statusCol = new TableColumn("Status");
         statusCol.setCellValueFactory(new PropertyValueFactory<Process, String>("state"));
-        
+        TableColumn ioCol = new TableColumn("IO");
+        ioCol.setCellValueFactory(new PropertyValueFactory<Process, String>("IO"));
+
         TableColumn nameCol2 = new TableColumn("Process");
         nameCol2.setCellValueFactory(new PropertyValueFactory<Process, String>("name"));
         TableColumn sizeCol2 = new TableColumn("Size");
@@ -99,73 +101,73 @@ public class GUITEST extends Application {
         nameCol3.setCellValueFactory(new PropertyValueFactory<Process, String>("name"));
         TableColumn sizeCol3 = new TableColumn("Size");
         sizeCol3.setCellValueFactory(new PropertyValueFactory<Process, String>("size"));
-        
+
         this.readyProcessList.setAll(Scheduler.getReadyQueue().stream().collect(Collectors.toList()));
         this.allProcessList.setAll(this.os.processes.stream().collect(Collectors.toList()));
         this.waitProcessList.setAll(Scheduler.getWaitQueue().stream().collect(Collectors.toList()));
         readyTable = new TableView();
 
         readyTable.setItems(this.readyProcessList);
-        readyTable.getColumns().addAll(nameCol, sizeCol, arrivalCol, statusCol);
+        readyTable.getColumns().addAll(nameCol, sizeCol, arrivalCol, statusCol, ioCol);
 
 
         waitTable = new TableView();
         waitTable.setItems(this.waitProcessList);
         waitTable.getColumns().addAll(nameCol2, sizeCol2, arrivalCol2, statusCol2);
-        
+
 
         jobsTable = new TableView();
         jobsTable.setItems(this.allProcessList);
         jobsTable.getColumns().addAll(nameCol3, sizeCol3);
-        
+
         input = new TextField();
-        
-        
+
+
         VBox jobsBox = new VBox();
         jobsBox.setSpacing(10);
         Text jobsTitle = new Text("Available Jobs");
         jobsTitle.setStyle("-fx-font-size: 18px");
         jobsBox.getChildren().addAll(jobsTitle, jobsTable);
-        
+
         VBox waitBox = new VBox();
         waitBox.setSpacing(10);
         Text waitTitle = new Text("Wait Queue");
         waitTitle.setStyle("-fx-font-size: 18px");
         waitBox.getChildren().addAll(waitTitle, waitTable);
-        
+
         VBox readyBox = new VBox();
         readyBox.setSpacing(10);
         Text readyTitle = new Text("Ready Queue");
         readyTitle.setStyle("-fx-font-size: 18px");
         readyBox.getChildren().addAll(readyTitle, readyTable);
-        
+
         inField = new HBox();
         inField.setSpacing(10);
         inField.getChildren().addAll(input);
-        
+
         bc.getData().addAll(series);
         upField = new HBox();
         upField.setSpacing(10);
         upField.setPadding(new Insets(10, 10, 10, 10));
         upField.getChildren().addAll(jobsBox, waitBox, readyBox, bc);
-        
-        
-        
+
+
+
         textArea = new TextArea();
         textArea.setEditable(false);
         textArea.setFocusTraversable(false);
         textArea.setPrefRowCount(3);
         textArea.setPrefColumnCount(50);
         textArea.autosize();
-        
+
         lowField = new VBox();
         lowField.setSpacing(10);
         lowField.setPadding(new Insets(10, 10, 10, 10));
         lowField.getChildren().addAll(textArea, inField);
-        
+
         layout.setTop(upField);
         layout.setBottom(lowField);
-        
+
         String[] validCommands = new String[6];
         validCommands[0] = "PROC";
         validCommands[1] = "MEM";
@@ -173,7 +175,7 @@ public class GUITEST extends Application {
         validCommands[3] = "EXE";
         validCommands[4] = "RESET";
         validCommands[5] = "EXIT";
-        
+
         input.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {
@@ -194,7 +196,7 @@ public class GUITEST extends Application {
                                     textArea.appendText("Invalid Load\n");
                                 else
                                 {
-                                    
+
                                     os.LOAD(command[1]);
                                 }
                             else if(i==3)
@@ -219,14 +221,17 @@ public class GUITEST extends Application {
         window.setScene(scene);
 
         window.show();
-        //start();
+        startUp();
 
 
 
     }
-    
-    public static void start()
+
+    public static void startUp()
     {
+        readyProcessList.setAll(os.scheduler.getReadyQueue().stream().collect(Collectors.toList()));
+        waitProcessList.setAll(os.scheduler.getWaitQueue().stream().collect(Collectors.toList()));
+
         final long[] prevTime = {0};
 
         new AnimationTimer() {
@@ -241,10 +246,12 @@ public class GUITEST extends Application {
                     }
 
                     prevTime[0] = currentNanoTime + 90000000;
+
                 }
             }
         }.start();
     }
+
 
     public static void update() {
 
@@ -263,18 +270,18 @@ public class GUITEST extends Application {
         readyTable.setItems(readyProcessList);
         waitTable.setItems(waitProcessList);
         jobsTable.setItems(allProcessList);
-        
-        
+
+
         bc.getData().clear();
         XYChart.Series series = new XYChart.Series();
         series.setName("Memory");
         series.getData().setAll(new XYChart.Data(mem, 4096 - os.MEM()));
-        
+
         bc.getData().setAll(series);
-        
 
     }
-    
+
+
     public static void output(String message)
     {
         textArea.appendText(message + "\n");
