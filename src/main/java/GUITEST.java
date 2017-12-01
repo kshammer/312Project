@@ -63,7 +63,7 @@ public class GUITEST extends Application {
         stage.setHeight(900);
         
         final CategoryAxis xAxis = new CategoryAxis();
-        final NumberAxis yAxis = new NumberAxis(0.0, 4100.0, 1.0);
+        final NumberAxis yAxis = new NumberAxis(0.0, 4100.0, 100.0);
         bc = new BarChart<String,Number>(xAxis,yAxis);
         bc.setTitle("Memory In Use");
         xAxis.setLabel("Used");       
@@ -215,14 +215,35 @@ public class GUITEST extends Application {
                 }
             }
         });
-        
         Scene scene = new Scene(layout, 900, 600);
         window.setScene(scene);
 
         window.show();
+        //start();
 
 
 
+    }
+    
+    public static void start()
+    {
+        final long[] prevTime = {0};
+
+        new AnimationTimer() {
+            @Override public void handle(long currentNanoTime) {
+                if (currentNanoTime > prevTime[0] + 90000000) {
+                    try {
+                        update();
+                        if( 1 == 0)
+                            throw new InterruptedException();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+
+                    prevTime[0] = currentNanoTime + 90000000;
+                }
+            }
+        }.start();
     }
 
     public static void update() {
@@ -237,8 +258,8 @@ public class GUITEST extends Application {
         waitProcessList.setAll(waitUpdate);
         allProcessList.clear();
         allProcessList.setAll(allUpdate);
-        System.out.println(readyUpdate.get(0).getName());
-        System.out.println(readyProcessList.get(0).getName());
+        /*System.out.println(readyUpdate.get(0).getName());
+        System.out.println(readyProcessList.get(0).getName());*/
         readyTable.setItems(readyProcessList);
         waitTable.setItems(waitProcessList);
         jobsTable.setItems(allProcessList);
@@ -247,9 +268,9 @@ public class GUITEST extends Application {
         bc.getData().clear();
         XYChart.Series series = new XYChart.Series();
         series.setName("Memory");
-        series.getData().add(new XYChart.Data(mem, 4096 - os.MEM()));
+        series.getData().setAll(new XYChart.Data(mem, 4096 - os.MEM()));
         
-        bc.getData().addAll(series);
+        bc.getData().setAll(series);
         
 
     }
