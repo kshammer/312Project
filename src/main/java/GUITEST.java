@@ -50,6 +50,8 @@ public class GUITEST extends Application {
     private HBox upField;
     private VBox lowField;
     private TextField input;
+    private StringBuilder sb = new StringBuilder();
+    private ScheduleQueue sq = new ScheduleQueue();
     public static BarChart<String,Number> bc;
 
    // public static void main(String[] args){
@@ -175,7 +177,7 @@ public class GUITEST extends Application {
         validCommands[3] = "EXE";
         validCommands[4] = "RESET";
         validCommands[5] = "EXIT";
-        
+
         input.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {
@@ -187,8 +189,15 @@ public class GUITEST extends Application {
                         if(command[0].equalsIgnoreCase(validCommands[i]))
                         {
                             valid = true;
-                            if(i == 0)
-                                textArea.appendText(os.PROC() + "\n");
+                            if(i == 0) {
+                                sq = os.PROC();
+                                for (int z = 0; z < sq.readyQueue.size(); z++) {
+                                    sb.append(sq.readyQueue.get(z).getName());
+                                    sb.append("\n");
+                                }
+                                textArea.appendText(sb.toString());
+                                sb.setLength(0);
+                            }
                             else if(i == 1)
                                 textArea.appendText(os.MEM() + "\n");
                             else if(i == 2)
