@@ -63,6 +63,11 @@ public class OS {
             runCPU();
         }
     }
+    public void EXE(){
+        while(true){
+            runCPU();
+        }
+    }
     public void LOAD(String process){
         for(int i = 0; i < processes.size(); i++){
             if(process.equals(processes.get(i).getName())){
