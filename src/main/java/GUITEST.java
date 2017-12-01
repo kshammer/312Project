@@ -17,19 +17,16 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.Scene;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
-import javafx.application.Application;
 
 import java.util.stream.Collectors;
 
 import static javafx.application.Application.launch;
 
 public class GUITEST extends Application {
+    private final ObservableList<Process> allProcessList = FXCollections.observableArrayList();
     private final ObservableList<Process> readyProcessList = FXCollections.observableArrayList();
     private final ObservableList<Process> waitingProcessList = FXCollections.observableArrayList();
     
@@ -41,8 +38,10 @@ public class GUITEST extends Application {
     private TableView jobsTable;
     private BorderPane layout;
     private Stage window;
-    private HBox upperBox;
-    private VBox lowerBox;
+    private HBox inField;
+    private HBox upField;
+    private VBox lowField;
+    private TextField input;
 
     /*public static void main(String[] args){
         launch(args);
@@ -64,20 +63,25 @@ public class GUITEST extends Application {
         TableColumn prioCol = new TableColumn("Priority");
         prioCol.setCellValueFactory(new PropertyValueFactory<Process, String>("Priority"));
         this.readyProcessList.setAll(Scheduler.getReadyQueue().stream().collect(Collectors.toList()));
+        this.allProcessList.setAll(this.os.processes.stream().collect(Collectors.toList()));
         readyTable = new TableView();
         readyTable.setItems(this.readyProcessList);
         readyTable.getColumns().addAll(nameCol, sizeCol, arrivalCol, statusCol, prioCol);
         
         waitTable = new TableView();
-        waitTable.setItems(this.readyProcessList);
+        //waitTable.setItems(this.readyProcessList);
         waitTable.getColumns().addAll(nameCol, sizeCol, arrivalCol, statusCol, prioCol);
         
+        
         jobsTable = new TableView();
-        jobsTable.setItems(this.readyProcessList);
+        jobsTable.setItems(this.allProcessList);
         jobsTable.getColumns().addAll(nameCol, sizeCol);
         
+        input = new TextField();
+        
+        
         VBox jobsBox = new VBox();
-        jobsBox.setSpacing(5);
+        jobsBox.setSpacing(10);
         Text jobsTitle = new Text("Available Jobs");
         jobsTitle.setStyle("-fx-font-size: 18px");
         jobsBox.getChildren().addAll(jobsTitle, jobsTable);
@@ -94,10 +98,14 @@ public class GUITEST extends Application {
         readyTitle.setStyle("-fx-font-size: 18px");
         readyBox.getChildren().addAll(readyTitle, readyTable);
         
-        upperBox = new HBox();
-        upperBox.setSpacing(10);
-        upperBox.setPadding(new Insets(10, 10, 10, 10));
-        upperBox.getChildren().addAll(jobsBox, waitBox, readyBox);
+        inField = new HBox();
+        inField.setSpacing(10);
+        inField.getChildren().addAll(input);
+        
+        upField = new HBox();
+        upField.setSpacing(10);
+        upField.setPadding(new Insets(10, 10, 10, 10));
+        upField.getChildren().addAll(jobsBox, waitBox, readyBox);
         
         
         
@@ -108,13 +116,40 @@ public class GUITEST extends Application {
         textArea.setPrefColumnCount(50);
         textArea.autosize();
         
-        lowerBox = new VBox();
-        lowerBox.setSpacing(10);
-        lowerBox.setPadding(new Insets(10, 10, 10, 10));
-        lowerBox.getChildren().addAll(textArea);
+        lowField = new VBox();
+        lowField.setSpacing(10);
+        lowField.setPadding(new Insets(10, 10, 10, 10));
+        lowField.getChildren().addAll(textArea, inField);
         
-        layout.setTop(upperBox);
-        layout.setBottom(lowerBox);
+        layout.setTop(upField);
+        layout.setBottom(lowField);
+        
+        String[] validCommands = new String[6];
+        validCommands[0] = "PROC";
+        validCommands[1] = "MEM";
+        validCommands[2] = "LOAD";
+        validCommands[3] = "EXE";
+        validCommands[4] = "RESET";
+        validCommands[5] = "EXIT";
+        
+        input.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                if (event.getCode() == KeyCode.ENTER) {
+                    boolean valid = false;
+                    for(int i = 0; i < validCommands.length; i++)
+                    {
+                        if(input.getText().equals(validCommands[i]))
+                        {
+                            valid = true;
+                            textArea.appendText(validCommands[i] + "\n");
+                        }
+                    }
+                    if(!valid)
+                        textArea.appendText("Error: Invalid command\n");
+                }
+            }
+        });
         
         Scene scene = new Scene(layout, 900, 600);
         window.setScene(scene);
