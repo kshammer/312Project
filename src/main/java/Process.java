@@ -17,7 +17,7 @@ public class Process {
     private int size;
     private String name;
     private int runTime;
-    private ArrayList<String> commands = new ArrayList<String>();
+    public ArrayList<String> commands = new ArrayList<String>();
     private boolean critical = false;
     private int IO = 0;
     private int totalRunTime;
@@ -128,5 +128,29 @@ public class Process {
     public void setRunTime(){
         this.runTime++;
     }
+    public Process[] thread(Process p){
+        Process process1 = new Process();
+        Process process2 = new Process();
+        Process process3 = new Process();
+        process1.setName(p.getName() + "child1");
+        process1.setState(p.getState());
+        process1.setSize(p.getSize() /4);
+        process2.setName(p.getName() + "child2");
+        process2.setState(p.getState());
+        process2.setSize(p.getSize()/4);
+        process3.setName(p.getName() + "child3");
+        process3.setState(p.getState());
+        process3.setSize(p.getSize()/4);
+        p.setSize(p.getSize()/4);
+        for(int i = 0; i < 20; i++){
+            process1.addCommand(p.getNextCommand());
+            process2.addCommand(p.getNextCommand());
+            process3.addCommand(p.getNextCommand());
+        }
+        return null;
+
+
+    }
+
 
 }

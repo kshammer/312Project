@@ -13,7 +13,7 @@ public class OS {
         scheduler.programs.setJobQueue(processes);
     }
     public void runCPU(){
-        
+
 
         if(cpu.checkFirst()){
 
@@ -58,7 +58,7 @@ public class OS {
             runCPU();
         }
     }
-    public void EXE(){
+    public void EXE2(){
         while(true){
             runCPU();
         }
@@ -67,7 +67,17 @@ public class OS {
         for(int i = 0; i < processes.size(); i++){
             if(process.equals(processes.get(i).getName())){
                 processes.get(i).setArrival(Clock.getTick());
-                scheduler.programs.enqueueReady(processes.get(i));
+                if(processes.get(i).commands.size() > 100){
+                    Process[] family = processes.get(i).thread(processes.get(i));
+                    for(int p = 0; p < family.length; p++){
+                        scheduler.programs.enqueueReady(family[p]);
+                    }
+                }
+                else{
+                    scheduler.programs.enqueueReady(processes.get(i));
+                }
+
+
 
                 break;
             }
