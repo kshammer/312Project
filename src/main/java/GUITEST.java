@@ -184,40 +184,20 @@ public class GUITEST extends Application {
         window.setScene(scene);
 
         window.show();
-        try{
-            startup();
-        }
-        catch(Exception e){
 
-        }
 
 
     }
 
-    public void startup() throws InterruptedException {
-        readyProcessList.setAll(Scheduler.getReadyQueue().stream().collect(Collectors.toList()));
-        allProcessList.setAll(os.processes.stream().collect(Collectors.toList()));
-        waitProcessList.setAll(Scheduler.getWaitQueue().stream().collect(Collectors.toList()));
-        Timer timer = new Timer();
-        timer.scheduleAtFixedRate(new TimerTask() {
-            @Override
-            public void run() {
-                Platform.runLater(new Runnable() {
-                    @Override public void run() {
-                        update();
-                    }
-                });
-            }
-        }, 0, 1000);
-
-    }
     public void update() {
 
-        readyProcessList.setAll(os.scheduler.getReadyQueue().stream().collect(Collectors.toList()));
-        allProcessList.setAll(os.processes.stream().collect(Collectors.toList()));
-        waitProcessList.setAll(os.scheduler.getWaitQueue().stream().collect(Collectors.toList()));
-        readyTable.refresh();
-        waitTable.refresh();
-        jobsTable.refresh();
+        ObservableList<Process> readyUpdate = FXCollections.observableArrayList(os.scheduler.getReadyQueue());
+        ObservableList<Process> waitUpdate = FXCollections.observableArrayList(os.scheduler.getWaitQueue());
+        readyProcessList.clear();
+        readyProcessList.setAll(readyUpdate);
+        waitProcessList.clear();
+        waitProcessList.setAll(waitUpdate);
+
+
     }
 }
