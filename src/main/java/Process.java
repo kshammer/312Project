@@ -88,7 +88,7 @@ public class Process {
         return this.size;
     }
     public String getNextCommand(){
-        System.out.println("FINDING NEXT COMMAND");
+       // System.out.println("FINDING NEXT COMMAND");
         if(this.commands.size() > 0) {
             System.out.println("This is the next command " + this.commands.get(0));
             return this.commands.remove(0);

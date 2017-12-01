@@ -15,6 +15,7 @@ public class OS {
         if(cpu.checkFirst()){
             //System.out.println("ADDING FIRST PROCESS");
             cpu.setCurrentProcess(scheduler.getNextProcess());
+            //System.out.println("THIS IS THE CURRENT PROCESS ON CPU" + cpu.getCurrentProcess().getName());
             cpu.setFirst(false);
         }
         String update = cpu.Cycle();
@@ -103,6 +104,7 @@ public class OS {
                             //System.out.println(nextCommand);
                             commands.add(nextCommand);
                         }
+                        commands.remove(0);
                         holder.setCommands(commands);
                     }
                     catch(Exception E){
