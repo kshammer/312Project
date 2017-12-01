@@ -11,7 +11,7 @@ enum Priority{
     HIGH, MED, LOW
 }
 public class Process {
-    private State state;
+    private State state = State.NEW;
     private Priority pri;
     private int arrival;
     private int size;

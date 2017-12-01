@@ -30,6 +30,7 @@ public class CPU {
         this.current = proc;
     }
     public String Execute(){
+        current.setState(State.RUN);
 
         String command = current.getNextCommand();
        // System.out.println("THIS IS THE COMMAND " + command);
