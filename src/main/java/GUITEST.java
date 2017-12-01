@@ -71,14 +71,16 @@ public class GUITEST extends Application {
         this.allProcessList.setAll(this.os.processes.stream().collect(Collectors.toList()));
         this.waitProcessList.setAll(Scheduler.getWaitQueue().stream().collect(Collectors.toList()));
         readyTable = new TableView();
+
         readyTable.setItems(this.readyProcessList);
         readyTable.getColumns().addAll(nameCol, sizeCol, arrivalCol, statusCol);
-        
+
+
         waitTable = new TableView();
         waitTable.setItems(this.waitProcessList);
         waitTable.getColumns().addAll(nameCol, sizeCol, arrivalCol, statusCol);
         
-        
+
         jobsTable = new TableView();
         jobsTable.setItems(this.allProcessList);
         jobsTable.getColumns().addAll(nameCol, sizeCol, arrivalCol, statusCol);
@@ -193,10 +195,15 @@ public class GUITEST extends Application {
 
         ObservableList<Process> readyUpdate = FXCollections.observableArrayList(os.scheduler.getReadyQueue());
         ObservableList<Process> waitUpdate = FXCollections.observableArrayList(os.scheduler.getWaitQueue());
+
         readyProcessList.clear();
         readyProcessList.setAll(readyUpdate);
         waitProcessList.clear();
         waitProcessList.setAll(waitUpdate);
+        System.out.println(readyUpdate.get(0).getName());
+        System.out.println(readyProcessList.get(0).getName());
+        readyTable.setItems(readyProcessList);
+        waitTable.setItems(waitProcessList);
 
 
     }
