@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import javafx.application.Application;
 
 public class main {
     public static void main(String[] args){
@@ -9,11 +10,12 @@ public class main {
         System.out.println(test);
         test1 = "goodbye";
         System.out.println(test);
-        OS testOS = new OS();
-        System.out.println(testOS.processes.toString());
+        /*OS testOS = new OS();
+        System.out.println(testOS.processes.toString());*/
 
-        OS test2 = new OS();
-        System.out.println(test2.processes.toString());
+        /*OS test2 = new OS();
+        System.out.println(test2.processes.toString());*/
 
+        Application.launch(GUITEST.class, args);
     }
 }
