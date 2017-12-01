@@ -229,7 +229,7 @@ public class GUITEST extends Application {
 
     }
     
-    public void output(String message)
+    public static void output(String message)
     {
         textArea.appendText(message + "\n");
     }
