@@ -55,5 +55,6 @@ public class ScheduleQueue {
         this.totalMem = 4096;
         readyQueue.clear();
         waitQueue.clear();
+        jobQueue.clear();
     }
 }

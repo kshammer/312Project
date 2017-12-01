@@ -15,7 +15,7 @@ public class OS {
     public void runCPU(){
 
 
-        if(cpu.checkFirst()){
+        if(cpu.checkEmpty()){
 
             cpu.setCurrentProcess(scheduler.getNextProcess());
 
@@ -24,9 +24,9 @@ public class OS {
         if(scheduler.getQuantum() == 0){
             scheduler.resetQuantum();
             if(scheduler.getReadyQueue().isEmpty()){
-                scheduler.programs.enqueueReady(cpu.getCurrentProcess());
+                scheduler.addProcess(cpu.getCurrentProcess());
             }else{
-                scheduler.programs.enqueueReady(cpu.Swap(scheduler.getNextProcess()));
+                scheduler.addProcess(cpu.Swap(scheduler.getNextProcess()));
             }
 
         }
@@ -66,11 +66,15 @@ public class OS {
     public void EXE(int amount){
         for(int i = 0; i < amount; i++){
             runCPU();
+            if(scheduler.programs.readyQueue.isEmpty() && cpu.getCurrentProcess().getState() == State.EXIT){
+                cpu.isEmpty();
+            }
         }
     }
     public void EXE2(){
         while(true){
             if(scheduler.programs.readyQueue.isEmpty() && cpu.getCurrentProcess().getState() == State.EXIT){
+                cpu.isEmpty();
                 break;
             }
             runCPU();
@@ -105,8 +109,10 @@ public class OS {
     }
     public void RESET(){
         Clock.reset();
+        processes.clear();
         cpu.removeCurrentProcess();
         scheduler.clean();
+        getCommands();
 
     }
     public void EXIT(){

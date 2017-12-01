@@ -14,8 +14,11 @@ public class CPU {
 
 
     }
-    public boolean checkFirst(){
+    public boolean checkEmpty(){
         return first;
+    }
+    public void isEmpty(){
+        this.first = true;
     }
     public void setFirst(boolean b){
         this.first = b;
@@ -42,6 +45,7 @@ public class CPU {
 
         if(y.find()){
             //change what is on and set proccess to exit
+            System.out.println("THIS PROCESS SHOULD BE DONE");
             current.setState(State.EXIT);
             return "done";
         }else if (command.equals("IO")) {//do IO Stuff

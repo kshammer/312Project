@@ -74,6 +74,14 @@ public class Process {
     public void addCommand(String command){
         commands.add(0, command);
     }
+    public void addCommandToEnd(String command){
+        commands.add(command);
+    }
+
+    public ArrayList<String> getCommands() {
+        return commands;
+    }
+
     public void setSize(int size){
         if(size > 0){
             this.size = size;
@@ -129,6 +137,11 @@ public class Process {
         this.runTime++;
     }
     public Process[] thread(Process p){
+        Process holder = new Process();
+        holder.setSize(p.getSize());
+        holder.setName(p.getName());
+        holder.setCommands(p.getCommands());
+        holder.setState(p.getState());
         Process process1 = new Process();
         Process process2 = new Process();
         Process process3 = new Process();
@@ -141,14 +154,17 @@ public class Process {
         process3.setName(p.getName() + "child3");
         process3.setState(p.getState());
         process3.setSize(p.getSize()/4);
-        p.setSize(p.getSize()/4);
-        for(int i = 0; i < 20; i++){
-            process1.addCommand(p.getNextCommand());
-            process2.addCommand(p.getNextCommand());
-            process3.addCommand(p.getNextCommand());
+        holder.setSize(p.getSize()/4);
+        for(int i = 0; i < 15; i++){
+            process1.addCommand(holder.getNextCommand());
+            process2.addCommand(holder.getNextCommand());
+            process3.addCommand(holder.getNextCommand());
         }
+        process1.addCommandToEnd("EXE");
+        process2.addCommandToEnd("EXE");
+        process3.addCommandToEnd("EXE");
         Process[] familys = new Process[4];
-        familys[0] = p;
+        familys[0] = holder;
         familys[1] = process1;
         familys[2] = process2;
         familys[3] = process3;
