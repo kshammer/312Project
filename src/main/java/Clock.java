@@ -8,7 +8,7 @@ public class Clock {
     public static int getTick(){
         return tick;
     }
-    public void advanceTick(){
+    public static void advanceTick(){
         tick++;
     }
     public static void reset(){

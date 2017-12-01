@@ -42,12 +42,7 @@ public class Process {
         this.name = name;
     }
     public void setArrival(int time){
-        if(time > 0){
-            this.arrival = time;
-        }
-        else{
-            throw new IllegalArgumentException("time has to be greater than zero");
-        }
+        Clock.getTick();
     }
     public void setCommands(ArrayList<String> coolCommands){
         //copies by value should only be called once per process
@@ -105,4 +100,5 @@ public class Process {
     public void setRunTime(int run){
         this.runTime = run;
     }
+
 }

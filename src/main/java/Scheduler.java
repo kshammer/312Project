@@ -24,6 +24,13 @@ public class Scheduler {
             return programs.dequeueReady();
         }
     }
+    public Process viewNextProcess(){
+        if(programs.readyQueue.size() != 0){
+            return programs.readyQueue.get(0);
+        }else{
+            return null;
+        }
+    }
     public static void addProcess(Process p){
         p.setArrival(Clock.getTick());
         programs.enqueueReady(p);
