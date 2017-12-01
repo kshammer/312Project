@@ -75,6 +75,32 @@ public class GUITEST extends Application {
         jobsTable.getColumns().addAll(nameCol, sizeCol);
         
         input = new TextField();
+        String[] validCommands = new String[6];
+        validCommands[0] = "PROC";
+        validCommands[1] = "MEM";
+        validCommands[2] = "LOAD";
+        validCommands[3] = "EXE";
+        validCommands[4] = "RESET";
+        validCommands[5] = "EXIT";
+        
+        input.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                if (event.getCode() == KeyCode.ENTER) {
+                    boolean valid = false;
+                    for(int i = 0; i < validCommands.length; i++)
+                    {
+                        if(input.getText().equals(validCommands[i]))
+                        {
+                            valid = true;
+                            System.out.println(validCommands[i]);
+                        }
+                    }
+                    if(!valid)
+                        System.out.println("Error: Invalid command");
+                }
+            }
+        });
         
         VBox jobsBox = new VBox();
         jobsBox.setSpacing(10);
