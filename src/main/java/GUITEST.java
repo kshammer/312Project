@@ -27,6 +27,7 @@ public class GUITEST extends Application {
     }
     @Override
     public void start(Stage stage) {
+        window = stage;
         layout = new BorderPane();
         stage.setWidth(450);
         stage.setHeight(550);
