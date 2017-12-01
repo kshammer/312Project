@@ -96,7 +96,7 @@ public class OS {
                         while(readFile.hasNextLine()){
                             // check to make sure all the commands are valid
                             String nextCommand = readFile.nextLine();
-                            System.out.println(nextCommand);
+                            //System.out.println(nextCommand);
                             commands.add(nextCommand);
                         }
                         holder.setCommands(commands);
