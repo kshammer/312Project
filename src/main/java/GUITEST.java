@@ -26,6 +26,7 @@ import java.util.stream.Collectors;
 import static javafx.application.Application.launch;
 
 public class GUITEST extends Application {
+    private final ObservableList<Process> allProcessList = FXCollections.observableArrayList();
     private final ObservableList<Process> readyProcessList = FXCollections.observableArrayList();
     private final ObservableList<Process> waitingProcessList = FXCollections.observableArrayList();
     
@@ -62,16 +63,18 @@ public class GUITEST extends Application {
         TableColumn prioCol = new TableColumn("Priority");
         prioCol.setCellValueFactory(new PropertyValueFactory<Process, String>("Priority"));
         this.readyProcessList.setAll(Scheduler.getReadyQueue().stream().collect(Collectors.toList()));
+        this.allProcessList.setAll(this.os.processes.stream().collect(Collectors.toList()));
         readyTable = new TableView();
         readyTable.setItems(this.readyProcessList);
         readyTable.getColumns().addAll(nameCol, sizeCol, arrivalCol, statusCol, prioCol);
         
         waitTable = new TableView();
-        waitTable.setItems(this.readyProcessList);
+        //waitTable.setItems(this.readyProcessList);
         waitTable.getColumns().addAll(nameCol, sizeCol, arrivalCol, statusCol, prioCol);
         
+        
         jobsTable = new TableView();
-        jobsTable.setItems(this.readyProcessList);
+        jobsTable.setItems(this.allProcessList);
         jobsTable.getColumns().addAll(nameCol, sizeCol);
         
         input = new TextField();
