@@ -7,7 +7,7 @@ public class ScheduleQueue {
     private int totalMem = 4096;
     public ArrayList<Process> readyQueue = new ArrayList<Process>();
     public ArrayList<Process> waitQueue = new ArrayList<Process>();
-    private ArrayList<Process> jobQueue = new ArrayList<Process>();
+    public ArrayList<Process> jobQueue = new ArrayList<Process>();
 
 
     public ScheduleQueue(){
