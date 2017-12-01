@@ -13,7 +13,7 @@ public class jobfiles {
 			
 			Random rand = new Random();
 			
-			while (filename.length() < 8) {
+			while (filename.length() < 3) {
 	        int index = (int) (rand.nextFloat() * characters.length());
 	        filename.append(characters.charAt(index));
 			}
@@ -49,7 +49,7 @@ public class jobfiles {
 			
 		}
 	}
-	/*
+/*
 	public static void main(String[] args){
 		createJobFiles();
 	}
