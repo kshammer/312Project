@@ -147,7 +147,12 @@ public class Process {
             process2.addCommand(p.getNextCommand());
             process3.addCommand(p.getNextCommand());
         }
-        retur
+        Process[] family = new Process[4];
+        family[0] = p;
+        family[1] = process1;
+        family[2] = process2;
+        family[3] = process3;
+        return family;
 
 
     }
