@@ -29,6 +29,7 @@ import java.util.stream.Collectors;
 import static javafx.application.Application.launch;
 
 public class GUITEST extends Application {
+    
     public final ObservableList<Process> allProcessList = FXCollections.observableArrayList();
     public final ObservableList<Process> readyProcessList = FXCollections.observableArrayList();
     public final ObservableList<Process> waitProcessList = FXCollections.observableArrayList();
@@ -56,9 +57,11 @@ public class GUITEST extends Application {
         layout = new BorderPane();
         stage.setWidth(450);
         stage.setHeight(550);
+        
         TableView<Process> processTable = new TableView<>();
         ObservableList<Process> processList = FXCollections.observableArrayList();
         processTable.setItems(processList);
+        
         TableColumn nameCol = new TableColumn("Name");
         nameCol.setCellValueFactory(new PropertyValueFactory<Process, String>("name"));
         TableColumn sizeCol = new TableColumn("Size");
@@ -67,6 +70,21 @@ public class GUITEST extends Application {
         arrivalCol.setCellValueFactory(new PropertyValueFactory<Process, String>("arrival"));
         TableColumn statusCol = new TableColumn("Status");
         statusCol.setCellValueFactory(new PropertyValueFactory<Process, String>("state"));
+        
+        TableColumn nameCol2 = new TableColumn("Process");
+        nameCol2.setCellValueFactory(new PropertyValueFactory<Process, String>("name"));
+        TableColumn sizeCol2 = new TableColumn("Size");
+        sizeCol2.setCellValueFactory(new PropertyValueFactory<Process, String>("size"));
+        TableColumn arrivalCol2 = new TableColumn("Arrival Time");
+        arrivalCol2.setCellValueFactory(new PropertyValueFactory<Process, String>("arrival"));
+        TableColumn statusCol2 = new TableColumn("Status");
+        statusCol2.setCellValueFactory(new PropertyValueFactory<Process, String>("status"));
+
+        TableColumn nameCol3 = new TableColumn("Process");
+        nameCol3.setCellValueFactory(new PropertyValueFactory<Process, String>("name"));
+        TableColumn sizeCol3 = new TableColumn("Size");
+        sizeCol3.setCellValueFactory(new PropertyValueFactory<Process, String>("size"));
+        
         this.readyProcessList.setAll(Scheduler.getReadyQueue().stream().collect(Collectors.toList()));
         this.allProcessList.setAll(this.os.processes.stream().collect(Collectors.toList()));
         this.waitProcessList.setAll(Scheduler.getWaitQueue().stream().collect(Collectors.toList()));
@@ -78,12 +96,12 @@ public class GUITEST extends Application {
 
         waitTable = new TableView();
         waitTable.setItems(this.waitProcessList);
-        waitTable.getColumns().addAll(nameCol, sizeCol, arrivalCol, statusCol);
+        waitTable.getColumns().addAll(nameCol2, sizeCol2, arrivalCol2, statusCol2);
         
 
         jobsTable = new TableView();
         jobsTable.setItems(this.allProcessList);
-        jobsTable.getColumns().addAll(nameCol, sizeCol, arrivalCol, statusCol);
+        jobsTable.getColumns().addAll(nameCol3, sizeCol3);
         
         input = new TextField();
         
@@ -163,7 +181,6 @@ public class GUITEST extends Application {
                                     
                                     os.LOAD(command[1]);
                                     update();
-                                    textArea.appendText(Scheduler.getReadyQueue().toString());
                                 }
                             else if(i==3)
                                 if(command.length < 2)
@@ -195,16 +212,25 @@ public class GUITEST extends Application {
 
         ObservableList<Process> readyUpdate = FXCollections.observableArrayList(os.scheduler.getReadyQueue());
         ObservableList<Process> waitUpdate = FXCollections.observableArrayList(os.scheduler.getWaitQueue());
+        ObservableList<Process> allUpdate = FXCollections.observableArrayList(os.processes);
 
         readyProcessList.clear();
         readyProcessList.setAll(readyUpdate);
         waitProcessList.clear();
         waitProcessList.setAll(waitUpdate);
+        allProcessList.clear();
+        allProcessList.setAll(allUpdate);
         System.out.println(readyUpdate.get(0).getName());
         System.out.println(readyProcessList.get(0).getName());
         readyTable.setItems(readyProcessList);
         waitTable.setItems(waitProcessList);
+        jobsTable.setItems(allProcessList);
 
 
+    }
+    
+    public void output(String message)
+    {
+        textArea.appendText(message + "\n");
     }
 }
