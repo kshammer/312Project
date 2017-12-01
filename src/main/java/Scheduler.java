@@ -39,6 +39,11 @@ public class Scheduler {
     public static ArrayList<Process> getReadyQueue(){
         return programs.readyQueue;
     }
+    
+    public static ArrayList<Process> getWaitQueue(){
+        return programs.waitQueue;
+    }
+    
     public void clean(){
         resetQuantum();
         programs.reset();
