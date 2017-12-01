@@ -28,6 +28,7 @@ import static javafx.application.Application.launch;
 public class GUITEST extends Application {
     public static final ObservableList<Process> allProcessList = FXCollections.observableArrayList();
     public static final ObservableList<Process> readyProcessList = FXCollections.observableArrayList();
+    public static final ObservableList<Process> waitProcessList = FXCollections.observableArrayList();
     private final ObservableList<Process> waitingProcessList = FXCollections.observableArrayList();
     
     static protected TextArea textArea;
@@ -52,39 +53,41 @@ public class GUITEST extends Application {
         layout = new BorderPane();
         stage.setWidth(450);
         stage.setHeight(550);
+        TableView<Process> processTable = new TableView<>();
+        ObservableList<Process> processList = FXCollections.observableArrayList();
+        processTable.setItems(processList);
         TableColumn nameCol = new TableColumn("Name");
-        nameCol.setCellValueFactory(new PropertyValueFactory<Process, String>("Name"));
+        nameCol.setCellValueFactory(new PropertyValueFactory<Process, String>("name"));
         TableColumn sizeCol = new TableColumn("Size");
-        sizeCol.setCellValueFactory(new PropertyValueFactory<Process, String>("Size"));
+        sizeCol.setCellValueFactory(new PropertyValueFactory<Process, String>("size"));
         TableColumn arrivalCol = new TableColumn("Arrival");
-        arrivalCol.setCellValueFactory(new PropertyValueFactory<Process, String>("Arrival"));
+        arrivalCol.setCellValueFactory(new PropertyValueFactory<Process, String>("arrival"));
         TableColumn statusCol = new TableColumn("Status");
-        statusCol.setCellValueFactory(new PropertyValueFactory<Process, String>("Status"));
-        TableColumn prioCol = new TableColumn("Priority");
-        prioCol.setCellValueFactory(new PropertyValueFactory<Process, String>("Priority"));
+        statusCol.setCellValueFactory(new PropertyValueFactory<Process, String>("state"));
         this.readyProcessList.setAll(Scheduler.getReadyQueue().stream().collect(Collectors.toList()));
-        this.allProcessList.setAll(this.os.processes.stream().collect(Collectors.toList()));
+        //this.allProcessList.setAll(this.os.processes.stream().collect(Collectors.toList()));
+        this.waitProcessList.setAll(Scheduler.getWaitQueue().stream().collect(Collectors.toList()));
         readyTable = new TableView();
         readyTable.setItems(this.readyProcessList);
-        readyTable.getColumns().addAll(nameCol, sizeCol, arrivalCol, statusCol, prioCol);
+        readyTable.getColumns().addAll(nameCol, sizeCol, arrivalCol, statusCol);
         
         waitTable = new TableView();
-        //waitTable.setItems(this.readyProcessList);
-        waitTable.getColumns().addAll(nameCol, sizeCol, arrivalCol, statusCol, prioCol);
+        waitTable.setItems(this.waitProcessList);
+        waitTable.getColumns().addAll(nameCol, sizeCol, arrivalCol, statusCol);
         
         
-        jobsTable = new TableView();
+        /*jobsTable = new TableView();
         jobsTable.setItems(this.allProcessList);
-        jobsTable.getColumns().addAll(nameCol, sizeCol);
+        jobsTable.getColumns().addAll(nameCol, sizeCol, arrivalCol, statusCol);*/
         
         input = new TextField();
         
         
-        VBox jobsBox = new VBox();
+        /*VBox jobsBox = new VBox();
         jobsBox.setSpacing(10);
         Text jobsTitle = new Text("Available Jobs");
         jobsTitle.setStyle("-fx-font-size: 18px");
-        jobsBox.getChildren().addAll(jobsTitle, jobsTable);
+        jobsBox.getChildren().addAll(jobsTitle, jobsTable);*/
         
         VBox waitBox = new VBox();
         waitBox.setSpacing(10);
@@ -105,7 +108,7 @@ public class GUITEST extends Application {
         upField = new HBox();
         upField.setSpacing(10);
         upField.setPadding(new Insets(10, 10, 10, 10));
-        upField.getChildren().addAll(jobsBox, waitBox, readyBox);
+        upField.getChildren().addAll(/*jobsBox, */waitBox, readyBox);
         
         
         
@@ -154,8 +157,8 @@ public class GUITEST extends Application {
                                 {
                                     
                                     os.LOAD(command[1]);
-                                    textArea.appendText("Loading " + Scheduler.getReadyQueue().toString() + "\n");
                                     update();
+                                    textArea.appendText(Scheduler.getReadyQueue().toString());
                                 }
                             else if(i==3)
                                 if(command.length < 2)
@@ -183,6 +186,7 @@ public class GUITEST extends Application {
     
     public static void update() {
     readyProcessList.setAll(Scheduler.getReadyQueue().stream().collect(Collectors.toList()));
-    allProcessList.setAll(os.processes.stream().collect(Collectors.toList()));
-}
+    //allProcessList.setAll(os.processes.stream().collect(Collectors.toList()));
+    waitProcessList.setAll(Scheduler.getWaitQueue().stream().collect(Collectors.toList()));
+    }
 }
