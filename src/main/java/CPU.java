@@ -3,8 +3,8 @@ import java.util.regex.Pattern;
 
 public class CPU {
     private Process current = null;
-    public Clock cpuTime = new Clock();
     private int IOCycles;
+    public static Clock cpuTime = new Clock();
     private randomIO randomIO = new randomIO();
     private IOBurst burst = new IOBurst();
     private boolean first = true;
@@ -107,7 +107,7 @@ public class CPU {
         return "WAITING";
     }
     public Process Swap(Process p){
-        System.out.println("SWAPPING IN " + p.getName());
+        //System.out.println("SWAPPING IN " + p.getName());
         Process Holder = this.current;
         this.current = p;
         return Holder;

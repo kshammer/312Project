@@ -36,7 +36,7 @@ public class Scheduler {
         }
     }
     public static void addProcess(Process p){
-        p.setArrival(Clock.getTick());
+
         programs.enqueueReady(p);
     }
     public static ArrayList<Process> getReadyQueue(){

@@ -6,7 +6,7 @@ import java.util.concurrent.TimeUnit;
 public class OS {
 
     public ArrayList<Process> processes = new ArrayList<Process>();
-    public CPU cpu = new CPU();
+    public static CPU cpu = new CPU();
     public Scheduler scheduler = new Scheduler();
     public OS(){
         getCommands();
@@ -84,15 +84,19 @@ public class OS {
     public void LOAD(String process){
         for(int i = 0; i < processes.size(); i++){
             if(process.equals(processes.get(i).getName())){
-                processes.get(i).setArrival(Clock.getTick());
                 if(processes.get(i).commands.size() > 100){
                     Process[] family = processes.get(i).thread(processes.get(i));
                     for(int p = 0; p < family.length; p++){
+                        family[p].setArrival(cpu.cpuTime.getTick());
+                        System.out.println("THIS IS THE TICK " + family[p].getArrival());
                         scheduler.programs.enqueueReady(family[p]);
                     }
                 }
                 else{
+                    processes.get(i).setArrival(cpu.cpuTime.getTick());
+                    System.out.println("THIS IS THE TICK " + processes.get(i).getArrival());
                     scheduler.programs.enqueueReady(processes.get(i));
+
                 }
 
 
@@ -109,7 +113,7 @@ public class OS {
         return this.scheduler.programs.getTotalMem();
     }
     public void RESET(){
-        Clock.reset();
+        cpu.cpuTime.reset();
         processes.clear();
         cpu.removeCurrentProcess();
         scheduler.clean();

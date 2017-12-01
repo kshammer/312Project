@@ -1,17 +1,17 @@
 public class Clock {
-    private static int tick = 0;
+    private int tick = 0;
 
     public Clock(){
 
     }
 
-    public static int getTick(){
-        return tick;
+    public  int getTick(){
+        return this.tick;
     }
-    public static void advanceTick(){
-        tick++;
+    public  void advanceTick(){
+        this.tick ++;
     }
-    public static void reset(){
-        tick = 0;
+    public  void reset(){
+        this.tick = 0;
     }
 }

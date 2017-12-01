@@ -46,7 +46,7 @@ public class Process {
         this.name = name;
     }
     public void setArrival(int time){
-        Clock.getTick();
+        this.arrival = time;
     }
     public void calcRuntime(){
         String pattern = "(CALCULATE.\\d+)";
