@@ -37,8 +37,13 @@ public class OS {
 
         }
         if(update.equals("done")){
-            System.out.println("A PROCESS HAS FINISHEDJ");
-            cpu.Swap(scheduler.getNextProcess());
+            System.out.println("A PROCESS HAS FINISHED");
+            if(scheduler.programs.readyQueue.isEmpty()){
+
+            }else{
+                cpu.Swap(scheduler.getNextProcess());
+            }
+
             scheduler.resetQuantum();
         }
         if(update.equals("YIELD")){
