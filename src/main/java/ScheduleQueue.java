@@ -46,5 +46,9 @@ public class ScheduleQueue {
         }
 
     }
-
+    public void reset(){
+        this.totalMem = 4096;
+        readyQueue.clear();
+        waitQueue.clear();
+    }
 }

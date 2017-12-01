@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 public class Scheduler {
     private int Quantum = 25;
-    private static ScheduleQueue programs = new ScheduleQueue();
+    public static ScheduleQueue programs = new ScheduleQueue();
 
     public Scheduler(){
 
@@ -30,6 +30,10 @@ public class Scheduler {
     }
     public static ArrayList<Process> getReadyQueue(){
         return programs.readyQueue;
+    }
+    public void clean(){
+        resetQuantum();
+        programs.reset();
     }
 
 

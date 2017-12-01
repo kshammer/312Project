@@ -65,8 +65,8 @@ public class CPU {
         }
         return null;
     }
-    public Process removeCurrentProcess(){
-        return this.current;
+    public void removeCurrentProcess(){
+        this.current = null;
     }
     public String Cycle(){
         cpuTime.advanceTick();

@@ -9,7 +9,7 @@ public class OS {
     public Scheduler scheduler = new Scheduler();
     public OS(){
         getCommands();
-        runCPU();
+        scheduler.programs.setJobQueue(processes);
     }
     public void runCPU(){
         String update = cpu.Cycle();
@@ -30,6 +30,30 @@ public class OS {
         }
 
 
+    }
+    public void LOAD(String process){
+        for(int i = 0; i < processes.size(); i++){
+            if(process.equals(processes.get(i).getName())){
+                scheduler.programs.enqueueReady(processes.get(i));
+                break;
+            }
+        }
+
+    }
+    public ScheduleQueue PROC(){
+        return this.scheduler.programs;
+    }
+    public int MEM(){
+        return this.scheduler.programs.getTotalMem();
+    }
+    public void RESET(){
+        Clock.reset();
+        cpu.removeCurrentProcess();
+        scheduler.clean();
+
+    }
+    public void EXIT(){
+        System.exit(0);
     }
 
     //loads all the Programs in programs folder into process objects
