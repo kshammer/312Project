@@ -19,7 +19,7 @@ public class jobfiles {
 			}
 			
 			int  lines = rand.nextInt(300) + 1;
-			PrintWriter writer = new PrintWriter("..\\312Project\\programs\\" + filename +".txt");
+			PrintWriter writer = new PrintWriter("..\\_312Projecto\\programs\\" + filename +".txt");
 			writer.println(lines);
 			
 			for(int i = 0; i < lines; i++) {
