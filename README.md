@@ -8,3 +8,10 @@ double click on _312projecto.jar
 ## JOB FILE GEN
 run jobfiles.java and it will put a new job file in the programs folder
 
+## DEVELOPERS
+
+Kyle Hammerschmidt 
+
+Neil Watson 
+
+Aaron Buehne 
