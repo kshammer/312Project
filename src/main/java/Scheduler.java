@@ -37,6 +37,7 @@ public class Scheduler {
     }
     public static void addProcess(Process p){
         p.setState(State.READY);
+        programs.updateQueue();
         programs.enqueueReady(p);
     }
     public static ArrayList<Process> getReadyQueue(){
