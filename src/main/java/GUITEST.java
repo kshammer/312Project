@@ -32,12 +32,13 @@ import java.util.stream.Collectors;
 import static javafx.application.Application.launch;
 
 public class GUITEST extends Application {
-    
+
+    // Initialize queues
     public static final ObservableList<Process> allProcessList = FXCollections.observableArrayList();
     public static final ObservableList<Process> readyProcessList = FXCollections.observableArrayList();
     public static final ObservableList<Process> waitProcessList = FXCollections.observableArrayList();
 
-
+    // Initialize objects
     static protected TextArea textArea;
     final static String mem = "Memory";
     static OS os = new OS();
@@ -57,12 +58,14 @@ public class GUITEST extends Application {
    // public static void main(String[] args){
       //  launch(args);
     //}
+
+    //Starts simulator, creates window
     @Override
     public void start(Stage stage) {
         window = stage;
         layout = new BorderPane();
-        stage.setWidth(900);
-        stage.setHeight(900);
+        stage.setWidth(900); // length of window
+        stage.setHeight(900); // height of window
         
         final CategoryAxis xAxis = new CategoryAxis();
         final NumberAxis yAxis = new NumberAxis(0.0, 4100.0, 100.0);
@@ -78,7 +81,8 @@ public class GUITEST extends Application {
         TableView<Process> processTable = new TableView<>();
         ObservableList<Process> processList = FXCollections.observableArrayList();
         processTable.setItems(processList);
-        
+
+        // Column settings for readyTable
         TableColumn nameCol = new TableColumn("Name");
         nameCol.setCellValueFactory(new PropertyValueFactory<Process, String>("name"));
         TableColumn sizeCol = new TableColumn("Size");
@@ -89,7 +93,8 @@ public class GUITEST extends Application {
         statusCol.setCellValueFactory(new PropertyValueFactory<Process, String>("state"));
         TableColumn ioCol = new TableColumn("IO");
         ioCol.setCellValueFactory(new PropertyValueFactory<Process, String>("IO"));
-        
+
+        // Column settings for waitTable
         TableColumn nameCol2 = new TableColumn("Process");
         nameCol2.setCellValueFactory(new PropertyValueFactory<Process, String>("name"));
         TableColumn sizeCol2 = new TableColumn("Size");
@@ -99,29 +104,34 @@ public class GUITEST extends Application {
         TableColumn statusCol2 = new TableColumn("Status");
         statusCol2.setCellValueFactory(new PropertyValueFactory<Process, String>("status"));
 
+        //Column settings for jobTable
         TableColumn nameCol3 = new TableColumn("Process");
         nameCol3.setCellValueFactory(new PropertyValueFactory<Process, String>("name"));
         TableColumn sizeCol3 = new TableColumn("Size");
         sizeCol3.setCellValueFactory(new PropertyValueFactory<Process, String>("size"));
-        
+
+        //Process list getting the queues
         this.readyProcessList.setAll(Scheduler.getReadyQueue().stream().collect(Collectors.toList()));
         this.allProcessList.setAll(this.os.processes.stream().collect(Collectors.toList()));
         this.waitProcessList.setAll(Scheduler.getWaitQueue().stream().collect(Collectors.toList()));
         readyTable = new TableView();
 
+        //Input settings to readyTable
         readyTable.setItems(this.readyProcessList);
         readyTable.getColumns().addAll(nameCol, sizeCol, arrivalCol, statusCol, ioCol);
 
-
+        //Input settings to waitTable
         waitTable = new TableView();
         waitTable.setItems(this.waitProcessList);
         waitTable.getColumns().addAll(nameCol2, sizeCol2, arrivalCol2, statusCol2);
         
-
+        //Input settings to jobTable
         jobsTable = new TableView();
         jobsTable.setItems(this.allProcessList);
         jobsTable.getColumns().addAll(nameCol3, sizeCol3);
-        
+
+
+
         input = new TextField();
         
         
@@ -152,9 +162,7 @@ public class GUITEST extends Application {
         upField.setSpacing(10);
         upField.setPadding(new Insets(10, 10, 10, 10));
         upField.getChildren().addAll(jobsBox, waitBox, readyBox, bc);
-        
-        
-        
+
         textArea = new TextArea();
         textArea.setEditable(false);
         textArea.setFocusTraversable(false);
@@ -169,7 +177,8 @@ public class GUITEST extends Application {
         
         layout.setTop(upField);
         layout.setBottom(lowField);
-        
+
+        //Valid user input commands in simulator
         String[] validCommands = new String[6];
         validCommands[0] = "PROC";
         validCommands[1] = "MEM";
@@ -178,6 +187,8 @@ public class GUITEST extends Application {
         validCommands[4] = "RESET";
         validCommands[5] = "EXIT";
 
+
+        // Reading user input on command line in simulator
         input.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {
@@ -235,7 +246,8 @@ public class GUITEST extends Application {
 
 
     }
-    
+
+    //method called by javafx
     public static void start()
     {
         final long[] prevTime = {0};
@@ -257,6 +269,7 @@ public class GUITEST extends Application {
         }.start();
     }
 
+    //method called by javafx
     public static void update() {
 
         ObservableList<Process> readyUpdate = FXCollections.observableArrayList(os.scheduler.getReadyQueue());
@@ -285,7 +298,8 @@ public class GUITEST extends Application {
         
 
     }
-    
+
+    //output message
     public static void output(String message)
     {
         textArea.appendText(message + "\n");
