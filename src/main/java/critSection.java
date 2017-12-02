@@ -9,7 +9,7 @@ public class critSection {
 
         if(j == 1)
         {
-            System.out.println("Hardware interupt generated.");
+            System.out.println("ENTERED CRITICAL SECTION");
             return true;
         }
 

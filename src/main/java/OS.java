@@ -53,7 +53,7 @@ public class OS {
         }
         if(update != null){
             if(update.contains("OUT")){
-                GUITEST.output(update);
+                GUITEST.output(cpu.getCurrentProcess().getName() + " " + update);
             }
 
 
