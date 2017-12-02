@@ -4,6 +4,7 @@ import java.util.Collections;
 
 public class ScheduleQueue {
     //Divide into seperate parts for A/B grade
+    //holds the queues and the amount of memory
     private int totalMem = 4096;
     public ArrayList<Process> readyQueue = new ArrayList<Process>();
     public ArrayList<Process> waitQueue = new ArrayList<Process>();
@@ -13,6 +14,7 @@ public class ScheduleQueue {
     public ScheduleQueue(){
 
     }
+    //adds something to ready queue
     public void enqueueReady(Process process){
         if (process.getSize() < this.totalMem) {
             process.setState(State.READY);
@@ -51,6 +53,7 @@ public class ScheduleQueue {
         }
 
     }
+    //for reset
     public void reset(){
         this.totalMem = 4096;
         readyQueue.clear();

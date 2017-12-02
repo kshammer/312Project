@@ -2,6 +2,7 @@ import java.util.ArrayList;
 
 public class Scheduler {
     private int Quantum = 25;
+    //holds different queues
     public static ScheduleQueue programs = new ScheduleQueue();
 
     public Scheduler(){
@@ -16,7 +17,9 @@ public class Scheduler {
     public void updateQuantum(){
         this.Quantum--;
     }
+    //returns next process in the queue
     public Process getNextProcess(){
+        //if there is something in ready queue use that
         if(programs.readyQueue.size() != 0){
 
             return programs.dequeueReady();
@@ -35,6 +38,7 @@ public class Scheduler {
             return null;
         }
     }
+    //adds a process to the queueu
     public static void addProcess(Process p){
         p.setState(State.READY);
         programs.updateQueue();
@@ -47,7 +51,8 @@ public class Scheduler {
     public static ArrayList<Process> getWaitQueue(){
         return programs.waitQueue;
     }
-    
+
+    //for reset command
     public void clean(){
         resetQuantum();
         programs.reset();

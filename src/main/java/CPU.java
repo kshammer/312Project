@@ -17,6 +17,7 @@ public class CPU {
     public boolean checkEmpty(){
         return first;
     }
+    //checks to see if there is a program on the cpu
     public void isEmpty(){
         this.first = true;
     }
@@ -29,14 +30,18 @@ public class CPU {
     public void setCurrentProcess(Process proc){
         this.current = proc;
     }
+    //CPU does one Cycle
     public String Execute(){
+        //set process to run
         current.setState(State.RUN);
         if(critSection.check()){
+            //generates critical section
             current.genCriticalSection();
         }
 
         String command = current.getNextCommand();
        // System.out.println("THIS IS THE COMMAND " + command);
+        //regex to check commands
         String pattern = "(CALCULATE.\\d+)";
         String pattern2 = "(OUT)";
         String pattern3 = "(EXE)";
@@ -46,12 +51,13 @@ public class CPU {
         Matcher m = r.matcher(command);
         Pattern z = Pattern.compile(pattern3);
         Matcher y = z.matcher(command);
-
+        // if it finds EXE
         if(y.find()){
             //change what is on and set proccess to exit
             System.out.println("THIS PROCESS SHOULD BE DONE");
             current.setState(State.EXIT);
             return "done";
+        //if it finds IO
         }else if (command.equals("IO")) {//do IO Stuff
             current.setState(State.WAIT);
             current.doingIO();
@@ -59,6 +65,7 @@ public class CPU {
             return "IO";
 
         }
+        //if it finds calc
         else if(m.find()){
             StringBuilder sb = new StringBuilder();
             String[] commands = command.split("\\s+");
@@ -73,10 +80,12 @@ public class CPU {
             return "CALCULATE";
 
         }
+        //if it finds yeild
         else if(command.equals("YIELD")){
             // do yeild stuff
             return "YIELD";
         }
+        //if it finds out
         else if(n.find()){
             // Print something out to console
 
@@ -91,6 +100,7 @@ public class CPU {
     public void removeCurrentProcess(){
         this.current = null;
     }
+    //runs a cpu cycle
     public String Cycle(){
         cpuTime.advanceTick();
         current.setRunTime();
@@ -110,6 +120,7 @@ public class CPU {
         }
         return "WAITING";
     }
+    //swaps what is on processor
     public Process Swap(Process p){
         //System.out.println("SWAPPING IN " + p.getName());
         Process Holder = this.current;

@@ -1,7 +1,7 @@
 import java.util.Random;
 
 public class IOBurst {
-
+    //gens io burst of 25 or 50 cycles
     private int min = 25;
     private int max = 50;
     public IOBurst(){

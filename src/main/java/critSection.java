@@ -2,6 +2,7 @@ import java.util.Random;
 
 public class critSection {
 
+    // 1 in 100 chance to enter critical section
     public static boolean check()
     {
         Random ran = new Random();

@@ -9,29 +9,35 @@ public class OS {
     public static CPU cpu = new CPU();
     public Scheduler scheduler = new Scheduler();
     public OS(){
+        //at the beginning reads the programs folder
         getCommands();
+        //sets the jobqueue
         scheduler.programs.setJobQueue(processes);
     }
+    //runs a CPU cycle
     public void runCPU(){
 
-
+        //checks if there is something on the CPU
         if(cpu.checkEmpty()){
-
+            //adds somthing to CPU
             cpu.setCurrentProcess(scheduler.getNextProcess());
 
             cpu.setFirst(false);
         }
         if(scheduler.getQuantum() == 0){
+            //reset the quantum at the end
             scheduler.resetQuantum();
             if(scheduler.getReadyQueue().isEmpty()){
+                //swap process
                 scheduler.addProcess(cpu.getCurrentProcess());
             }else{
-
+                //swap process
                 scheduler.addProcess(cpu.Swap(scheduler.getNextProcess()));
             }
 
         }
-        //scheduler.programs.enqueueReady(cpu.getCurrentProcess());
+
+        //run a single cpu cycle
         String update = cpu.Cycle();
 
         if(update.equals("IO")){
@@ -47,6 +53,7 @@ public class OS {
 
             scheduler.resetQuantum();
         }
+        //if yield do a swap
         if(update.equals("YIELD")){
             scheduler.programs.enqueueReady(cpu.Swap(scheduler.getNextProcess()));
             scheduler.resetQuantum();
@@ -67,10 +74,12 @@ public class OS {
     public CPU getCpu(){
         return cpu;
     }
+    //exe command for amount of cycles
     public void EXE(int amount){
         for(int i = 0; i < amount; i++){
             runCPU();
             if(scheduler.programs.readyQueue.isEmpty() && cpu.getCurrentProcess().getState() == State.EXIT){
+                //setting cpu to empty
                 cpu.isEmpty();
                 break;
             }
@@ -79,17 +88,22 @@ public class OS {
     public void EXE2(){
         while(true){
             if(scheduler.programs.readyQueue.isEmpty() && cpu.getCurrentProcess().getState() == State.EXIT){
+                //setting cpu to empty
                 cpu.isEmpty();
                 break;
             }
             runCPU();
         }
     }
+    //loads a process onto the scheduler
     public void LOAD(String process){
         for(int i = 0; i < processes.size(); i++){
+            //checks to make sure it is a valid process
             if(process.equals(processes.get(i).getName())){
+                //if a process is of a certain size it is assumed to be multithreaded
                 if(processes.get(i).commands.size() > 100){
                     Process[] family = processes.get(i).thread(processes.get(i));
+                    //creates the family and adds the process
                     for(int p = 0; p < family.length; p++){
                         family[p].setArrival(cpu.cpuTime.getTick());
                         System.out.println("THIS IS THE TICK " + family[p].getArrival());
@@ -110,12 +124,15 @@ public class OS {
         }
 
     }
+    //returns the process queueu
     public ScheduleQueue PROC(){
         return this.scheduler.programs;
     }
+    //returns memory
     public int MEM(){
         return this.scheduler.programs.getTotalMem();
     }
+    //resets the simulation
     public void RESET(){
         cpu.cpuTime.reset();
         processes.clear();

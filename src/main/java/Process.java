@@ -1,16 +1,17 @@
-import java.io.File;
 import java.util.ArrayList;
-import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+//State process can be in
 enum State{
     NEW, READY, RUN, WAIT, EXIT,
 }
+//sets the priority
 enum Priority{
     HIGH, MED, LOW
 }
 public class Process {
+    //class variables
     private State state = State.NEW;
     private Priority pri;
     private int arrival;
@@ -36,6 +37,7 @@ public class Process {
 
 
     }
+    //Sends the process into a critical section
     public void genCriticalSection(){
         if(!family.isEmpty()){
             for(int i =0; i < family.size(); i++){
@@ -57,6 +59,7 @@ public class Process {
     public void setArrival(int time){
         this.arrival = time;
     }
+    //Calculates the runtime of the process
     public void calcRuntime(){
         String pattern = "(CALCULATE.\\d+)";
         Pattern r = Pattern.compile(pattern);
@@ -70,6 +73,7 @@ public class Process {
             }
         }
     }
+    //Sets the commands
     public void setCommands(ArrayList<String> coolCommands){
         //copies by value should only be called once per process
         this.commands.clear();
@@ -145,6 +149,7 @@ public class Process {
     public void setRunTime(){
         this.runTime++;
     }
+    //splits the proccess into different threads
     public Process[] thread(Process p){
         Process holder = new Process();
         holder.setSize(p.getSize());
