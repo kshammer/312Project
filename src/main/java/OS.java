@@ -64,6 +64,9 @@ public class OS {
 
 
     }
+    public CPU getCpu(){
+        return cpu;
+    }
     public void EXE(int amount){
         for(int i = 0; i < amount; i++){
             runCPU();
