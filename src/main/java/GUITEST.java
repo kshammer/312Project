@@ -36,7 +36,7 @@ public class GUITEST extends Application {
     public static final ObservableList<Process> allProcessList = FXCollections.observableArrayList();
     public static final ObservableList<Process> readyProcessList = FXCollections.observableArrayList();
     public static final ObservableList<Process> waitProcessList = FXCollections.observableArrayList();
-    
+
 
     static protected TextArea textArea;
     final static String mem = "Memory";
