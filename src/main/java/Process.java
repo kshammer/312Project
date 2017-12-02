@@ -21,7 +21,7 @@ public class Process {
     private boolean critical = false;
     private int IO = 0;
     private int totalRunTime;
-    private ArrayList<String> family = new ArrayList<String>();
+    private ArrayList<Process> family = new ArrayList<Process>();
 
     public Process(){
 
@@ -34,6 +34,15 @@ public class Process {
         setCommands(commands);
         this.state = this.state.NEW;
 
+
+    }
+    public void genCriticalSection(){
+        if(!family.isEmpty()){
+            for(int i =0; i < family.size(); i++){
+                if(!this.name.equals(family.get(i).getName()))
+                    family.get(i).addCommand("YIELD");
+            }
+        }
 
     }
     public void setPriority(Priority pri){
@@ -169,10 +178,10 @@ public class Process {
         familys[2] = process2;
         familys[3] = process3;
         for(int z = 0; z < familys.length; z++){
-            p.family.add(familys[z].getName());
-            process1.family.add(familys[z].getName());
-            process2.family.add(familys[z].getName());
-            process3.family.add(familys[z].getName());
+            p.family.add(familys[z]);
+            process1.family.add(familys[z]);
+            process2.family.add(familys[z]);
+            process3.family.add(familys[z]);
         }
         return familys;
 

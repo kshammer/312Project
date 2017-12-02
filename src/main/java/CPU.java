@@ -31,6 +31,9 @@ public class CPU {
     }
     public String Execute(){
         current.setState(State.RUN);
+        if(critSection.check()){
+            current.genCriticalSection();
+        }
 
         String command = current.getNextCommand();
        // System.out.println("THIS IS THE COMMAND " + command);
